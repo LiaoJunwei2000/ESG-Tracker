@@ -5,6 +5,8 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,12 +17,23 @@ import javax.persistence.Id;
  * @author tylerwang
  */
 @Entity
-public class csvFile implements Serializable {
+public class CsvFile implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private Date dateUpdated;
+    private String quarter;
+    private String comments;
+    
+    private List<Asset> assets;
+    
+    private User user;
+    
+    private Fund fund;
+    
+    
 
     public Long getId() {
         return id;
@@ -40,10 +53,10 @@ public class csvFile implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof csvFile)) {
+        if (!(object instanceof CsvFile)) {
             return false;
         }
-        csvFile other = (csvFile) object;
+        CsvFile other = (CsvFile) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
