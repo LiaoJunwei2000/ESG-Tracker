@@ -21,6 +21,13 @@ public class Asset implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String name;
+    private double value;
+    private boolean isGreen;
+    private String country;
+    
+    private Fund fund;
+    private CsvFile csvFile;
 
     public Long getId() {
         return id;
