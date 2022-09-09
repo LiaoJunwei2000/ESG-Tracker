@@ -23,6 +23,7 @@ public class CsvFile implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
     private Date dateUpdated;
     private String quarter;
     private String comments;
@@ -32,8 +33,6 @@ public class CsvFile implements Serializable {
     private User user;
     
     private Fund fund;
-    
-    
 
     public Long getId() {
         return id;
@@ -65,7 +64,7 @@ public class CsvFile implements Serializable {
 
     @Override
     public String toString() {
-        return "entity.csvFile[ id=" + id + " ]";
+        return "entity.CsvFile[ id=" + id + " ]";
     }
     
 }
