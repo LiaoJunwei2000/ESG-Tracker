@@ -61,5 +61,53 @@ public class Asset implements Serializable {
     public String toString() {
         return "entity.Asset[ id=" + id + " ]";
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getValue() {
+        return value;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
+    }
+
+    public boolean isIsGreen() {
+        return isGreen;
+    }
+
+    public void setIsGreen(boolean isGreen) {
+        this.isGreen = isGreen;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public Fund getFund() {
+        return fund;
+    }
+
+    public void setFund(Fund fund) {
+        this.fund = fund;
+    }
+
+    public CsvFile getCsvFile() {
+        return csvFile;
+    }
+
+    public void setCsvFile(CsvFile csvFile) {
+        this.csvFile = csvFile;
+    }
     
 }

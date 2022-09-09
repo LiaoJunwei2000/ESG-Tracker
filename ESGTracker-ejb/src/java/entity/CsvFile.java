@@ -30,7 +30,7 @@ public class CsvFile implements Serializable {
     
     private List<Asset> assets;
     
-    private User user;
+    private FundUser fundUser;
     
     private Fund fund;
 
@@ -65,6 +65,54 @@ public class CsvFile implements Serializable {
     @Override
     public String toString() {
         return "entity.CsvFile[ id=" + id + " ]";
+    }
+
+    public Date getDateUpdated() {
+        return dateUpdated;
+    }
+
+    public void setDateUpdated(Date dateUpdated) {
+        this.dateUpdated = dateUpdated;
+    }
+
+    public String getQuarter() {
+        return quarter;
+    }
+
+    public void setQuarter(String quarter) {
+        this.quarter = quarter;
+    }
+
+    public String getComments() {
+        return comments;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
+    public List<Asset> getAssets() {
+        return assets;
+    }
+
+    public void setAssets(List<Asset> assets) {
+        this.assets = assets;
+    }
+
+    public FundUser getUser() {
+        return fundUser;
+    }
+
+    public void setUser(FundUser fundUser) {
+        this.fundUser = fundUser;
+    }
+
+    public Fund getFund() {
+        return fund;
+    }
+
+    public void setFund(Fund fund) {
+        this.fund = fund;
     }
     
 }
