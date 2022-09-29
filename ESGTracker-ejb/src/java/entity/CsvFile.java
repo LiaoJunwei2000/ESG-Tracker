@@ -25,7 +25,8 @@ public class CsvFile implements Serializable {
     private Long id;
     
     private Date dateUpdated;
-    private String quarter;
+    private Date dateOfInformation;
+    private FinancialQuarter quarter;
     private String comments;
     
     private List<Asset> assets;
@@ -75,11 +76,27 @@ public class CsvFile implements Serializable {
         this.dateUpdated = dateUpdated;
     }
 
-    public String getQuarter() {
+    public FinancialQuarter getQuarter() {
         return quarter;
     }
 
-    public void setQuarter(String quarter) {
+    public Date getDateOfInformation() {
+        return dateOfInformation;
+    }
+
+    public void setDateOfInformation(Date dateOfInformation) {
+        this.dateOfInformation = dateOfInformation;
+    }
+
+    public FundUser getFundUser() {
+        return fundUser;
+    }
+
+    public void setFundUser(FundUser fundUser) {
+        this.fundUser = fundUser;
+    }
+
+    public void setQuarter(FinancialQuarter quarter) {
         this.quarter = quarter;
     }
 
