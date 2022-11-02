@@ -146,6 +146,6 @@ public class FinancialQuarter implements Serializable {
         } else {
             return 2;
         }
-    }    
+    }   
     
 }

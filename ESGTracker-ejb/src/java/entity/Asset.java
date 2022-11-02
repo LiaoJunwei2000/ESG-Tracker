@@ -4,6 +4,8 @@
  */
 package entity;
 
+import enumeration.RegionEnum;
+import enumeration.SectorEnum;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,8 +27,13 @@ public class Asset implements Serializable {
     private double value;
     private boolean isGreen;
     private String country;
+    private String updateUser;
+    private RegionEnum region;
+    private SectorEnum sector;
     
-    private Fund fund;
+    private FinancialQuarter quarter;
+    
+    private Long fundId;
     
     //private CsvFile csvFile;
 
@@ -95,12 +102,46 @@ public class Asset implements Serializable {
         this.country = country;
     }
 
-    public Fund getFund() {
-        return fund;
+    public String getUpdateUser() {
+        return updateUser;
     }
 
-    public void setFund(Fund fund) {
-        this.fund = fund;
+    public void setUpdateUser(String updateUser) {
+        this.updateUser = updateUser;
+    }
+
+    public RegionEnum getRegion() {
+        return region;
+    }
+
+    public void setRegion(RegionEnum region) {
+        this.region = region;
+    }
+
+    public SectorEnum getSector() {
+        return sector;
+    }
+
+    public void setSector(SectorEnum sector) {
+        this.sector = sector;
+    }
+
+    public FinancialQuarter getQuarter() {
+        return quarter;
+    }
+
+    public void setQuarter(FinancialQuarter quarter) {
+        this.quarter = quarter;
+    }
+    
+    
+
+    public Long getFundId() {
+        return fundId;
+    }
+
+    public void setFundId(Long fundId) {
+        this.fundId = fundId;
     }
 
 //    public CsvFile getCsvFile() {

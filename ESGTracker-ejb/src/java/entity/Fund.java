@@ -7,10 +7,13 @@ package entity;
 import enumeration.RegionEnum;
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -30,13 +33,12 @@ public class Fund implements Serializable {
     private boolean inUNRPI;
     private boolean inTFCD;
     private double value;
+    private double greenValue;
     private double percentGreenByValue;
-    private String quarter;
+    private FinancialQuarter quarter;
     
-    private List<Asset> assets;
-    
-    private RegionEnum region;
-    
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)    
+    private List<Asset> assets;    
     
 
     public Long getId() {
@@ -120,6 +122,16 @@ public class Fund implements Serializable {
         this.value = value;
     }
 
+    public double getGreenValue() {
+        return greenValue;
+    }
+
+    public void setGreenValue(double greenValue) {
+        this.greenValue = greenValue;
+    }
+
+    
+    
     public double getPercentGreenByValue() {
         return percentGreenByValue;
     }
@@ -128,11 +140,11 @@ public class Fund implements Serializable {
         this.percentGreenByValue = percentGreenByValue;
     }
 
-    public String getQuarter() {
+    public FinancialQuarter getQuarter() {
         return quarter;
     }
 
-    public void setQuarter(String quarter) {
+    public void setQuarter(FinancialQuarter quarter) {
         this.quarter = quarter;
     }
 
@@ -144,12 +156,4 @@ public class Fund implements Serializable {
         this.assets = assets;
     }
 
-    public RegionEnum getRegion() {
-        return region;
-    }
-
-    public void setRegion(RegionEnum region) {
-        this.region = region;
-    }
-    
 }
