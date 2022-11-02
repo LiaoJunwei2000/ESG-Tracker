@@ -27,7 +27,7 @@ public class FundUser implements Serializable {
     private String name;
     private String password;
     
-    private List<CsvFile> CsvFiles;
+    // private List<CsvFile> CsvFiles;
 
     public Long getId() {
         return id;
@@ -78,12 +78,12 @@ public class FundUser implements Serializable {
         this.password = password;
     }
 
-    public List<CsvFile> getCsvFiles() {
-        return CsvFiles;
-    }
-
-    public void setCsvFiles(List<CsvFile> CsvFiles) {
-        this.CsvFiles = CsvFiles;
-    }
+//    public List<CsvFile> getCsvFiles() {
+//        return CsvFiles;
+//    }
+//
+//    public void setCsvFiles(List<CsvFile> CsvFiles) {
+//        this.CsvFiles = CsvFiles;
+//    }
     
 }
