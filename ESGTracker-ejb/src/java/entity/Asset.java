@@ -27,7 +27,8 @@ public class Asset implements Serializable {
     private String country;
     
     private Fund fund;
-    private CsvFile csvFile;
+    
+    //private CsvFile csvFile;
 
     public Long getId() {
         return id;
@@ -102,12 +103,12 @@ public class Asset implements Serializable {
         this.fund = fund;
     }
 
-    public CsvFile getCsvFile() {
-        return csvFile;
-    }
-
-    public void setCsvFile(CsvFile csvFile) {
-        this.csvFile = csvFile;
-    }
+//    public CsvFile getCsvFile() {
+//        return csvFile;
+//    }
+//
+//    public void setCsvFile(CsvFile csvFile) {
+//        this.csvFile = csvFile;
+//    }
     
 }

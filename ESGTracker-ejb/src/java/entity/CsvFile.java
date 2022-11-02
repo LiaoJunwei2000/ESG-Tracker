@@ -26,14 +26,15 @@ public class CsvFile implements Serializable {
     
     private Date dateUpdated;
     private Date dateOfInformation;
-    private FinancialQuarter quarter;
     private String comments;
     
-    private List<Asset> assets;
+    //private FinancialQuarter quarter;
     
-    private FundUser fundUser;
+    //private List<Asset> assets;
     
-    private Fund fund;
+    //private FundUser fundUser;
+    
+    //private Fund fund;
 
     public Long getId() {
         return id;
@@ -76,10 +77,6 @@ public class CsvFile implements Serializable {
         this.dateUpdated = dateUpdated;
     }
 
-    public FinancialQuarter getQuarter() {
-        return quarter;
-    }
-
     public Date getDateOfInformation() {
         return dateOfInformation;
     }
@@ -87,19 +84,7 @@ public class CsvFile implements Serializable {
     public void setDateOfInformation(Date dateOfInformation) {
         this.dateOfInformation = dateOfInformation;
     }
-
-    public FundUser getFundUser() {
-        return fundUser;
-    }
-
-    public void setFundUser(FundUser fundUser) {
-        this.fundUser = fundUser;
-    }
-
-    public void setQuarter(FinancialQuarter quarter) {
-        this.quarter = quarter;
-    }
-
+    
     public String getComments() {
         return comments;
     }
@@ -108,28 +93,44 @@ public class CsvFile implements Serializable {
         this.comments = comments;
     }
 
-    public List<Asset> getAssets() {
-        return assets;
-    }
-
-    public void setAssets(List<Asset> assets) {
-        this.assets = assets;
-    }
-
-    public FundUser getUser() {
-        return fundUser;
-    }
-
-    public void setUser(FundUser fundUser) {
-        this.fundUser = fundUser;
-    }
-
-    public Fund getFund() {
-        return fund;
-    }
-
-    public void setFund(Fund fund) {
-        this.fund = fund;
-    }
+//    public FundUser getFundUser() {
+//        return fundUser;
+//    }
+//
+//    public void setFundUser(FundUser fundUser) {
+//        this.fundUser = fundUser;
+//    }
+//
+//    public void setQuarter(FinancialQuarter quarter) {
+//        this.quarter = quarter;
+//    }
+//    
+//    public FinancialQuarter getQuarter() {
+//        return quarter;
+//    }
+//
+//    public List<Asset> getAssets() {
+//        return assets;
+//    }
+//
+//    public void setAssets(List<Asset> assets) {
+//        this.assets = assets;
+//    }
+//
+//    public FundUser getUser() {
+//        return fundUser;
+//    }
+//
+//    public void setUser(FundUser fundUser) {
+//        this.fundUser = fundUser;
+//    }
+//
+//    public Fund getFund() {
+//        return fund;
+//    }
+//
+//    public void setFund(Fund fund) {
+//        this.fund = fund;
+//    }
     
 }
