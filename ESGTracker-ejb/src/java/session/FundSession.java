@@ -33,35 +33,35 @@ public class FundSession implements FundSessionLocal {
 
     @Override
     public FundUser getFundUser(Long uId) throws NoResultException {
-       FundUser user = em.find(FundUser.class, uId);
-       
-       if(user != null) {
-           return user;
-       } else {
-           throw new NoResultException("User not found");
-       }
+        FundUser user = em.find(FundUser.class, uId);
+
+        if (user != null) {
+            return user;
+        } else {
+            throw new NoResultException("User not found");
+        }
     }
 
     @Override
     public Fund getFund(Long fId) throws NoResultException {
         Fund fund = em.find(Fund.class, fId);
-       
-       if(fund != null) {
-           return fund;
-       } else {
-           throw new NoResultException("Fund not found");
-       }
+
+        if (fund != null) {
+            return fund;
+        } else {
+            throw new NoResultException("Fund not found");
+        }
     }
 
     @Override
     public Asset getAsset(Long aId) throws NoResultException {
         Asset asset = em.find(Asset.class, aId);
-       
-       if(asset != null) {
-           return asset;
-       } else {
-           throw new NoResultException("Asset not found");
-       }
+
+        if (asset != null) {
+            return asset;
+        } else {
+            throw new NoResultException("Asset not found");
+        }
     }
 
     @Override
@@ -72,7 +72,7 @@ public class FundSession implements FundSessionLocal {
     @Override
     public void updateFundUser(FundUser u) throws NoResultException {
         FundUser oldu = getFundUser(u.getId());
-        
+
         oldu.setName(u.getName());
         oldu.setPassword(u.getPassword());
     }
@@ -80,7 +80,7 @@ public class FundSession implements FundSessionLocal {
     @Override
     public void deleteFundUser(Long uId) throws NoResultException {
         FundUser user = getFundUser(uId);
-        
+
         em.remove(user);
     }
 
@@ -92,7 +92,7 @@ public class FundSession implements FundSessionLocal {
     @Override
     public void updateFund(Fund f) throws NoResultException {
         Fund oldf = getFund(f.getId());
-        
+
         oldf.setValue(f.getValue());
         oldf.setQuarter(f.getQuarter());
         oldf.setPercentGreenByValue(f.getPercentGreenByValue());
@@ -106,18 +106,18 @@ public class FundSession implements FundSessionLocal {
     @Override
     public void deleteFund(Long fId) throws NoResultException {
         Fund fund = getFund(fId);
-        
+
         List<Asset> assets = fund.getAssets();
         fund.setAssets(null);
-        
+
         for (Asset a : assets) {
             //remove the asset entry when deleting the fund entry, because each asset entry is unqiue to a fund
             em.remove(a);
         }
-        
+
         em.remove(fund);
     }
-    
+
     @Override
     public void aggregateAssetToFund(Asset a) throws NoResultException {
         Long fId = a.getFundId();
@@ -143,12 +143,12 @@ public class FundSession implements FundSessionLocal {
         fund.setPercentGreenByValue(newPercent);
         fund.setValue(newValue);
     }
-    
+
     @Override
     public void createAsset(Asset a) throws NoResultException {
         Long fId = a.getFundId();
         Fund fund = getFund(fId);
-        
+
         double fvalue = fund.getValue();
         double currentGreenValue = fund.getGreenValue();
 
@@ -168,14 +168,13 @@ public class FundSession implements FundSessionLocal {
 
         fund.setPercentGreenByValue(newPercent);
         fund.setValue(newValue);
-        
+
         //aggregateAssetToFund(a);
-        
         List<Asset> assets = fund.getAssets();
         assets.add(a);
-        
+
         em.persist(a);
-    }   
+    }
 
     //assumption: user cannot change the fund that the asset belongs to as well as the quarter when updating asset
     // i.e. the primary keys {fundId, quarter, assetId} cannot be changed
@@ -184,20 +183,20 @@ public class FundSession implements FundSessionLocal {
         Asset oldA = getAsset(a.getId());
         Long fId = a.getFundId();
         Fund fund = getFund(fId);
-        
+
         double oldAssetValue = oldA.getValue();
         double newAssetValue = a.getValue();
         boolean oldIsGreen = oldA.isIsGreen();
         boolean newIsGreen = a.isIsGreen();
-        
+
         double fundValue = fund.getValue();
         double fundGreen = fund.getGreenValue();
-        
+
         double newTotalValue = fundValue - oldAssetValue + newAssetValue;
         double percentGreen = fund.getPercentGreenByValue();
-        
+
         //old yes new no; old no new yes; old yes new yes; old no new no;
-        
+        /*
         if(oldIsGreen == TRUE && newIsGreen == FALSE) {
             fundGreen = fundGreen - oldAssetValue;
             percentGreen = fundGreen / newTotalValue * 100;
@@ -210,17 +209,27 @@ public class FundSession implements FundSessionLocal {
         } else if(oldIsGreen == FALSE && newIsGreen == FALSE) {
             percentGreen = fundGreen / newTotalValue * 100;
         }
-        
+         */
+        if (oldIsGreen) {
+            fundGreen -= oldAssetValue;
+        }
+
+        if (newIsGreen) {
+            fundGreen += newAssetValue;
+        }
+
+        percentGreen = fundGreen / newTotalValue * 100;
+
         fund.setValue(newTotalValue);
         fund.setGreenValue(fundGreen);
         fund.setPercentGreenByValue(percentGreen);
-        
+
         oldA.setValue(newAssetValue);
         oldA.setCountry(a.getCountry());
         oldA.setIsGreen(a.isIsGreen());
         oldA.setName(a.getName());
         oldA.setRegion(a.getRegion());
-        oldA.setSector(a.getSector());       
+        oldA.setSector(a.getSector());
 
     }
 
@@ -228,7 +237,7 @@ public class FundSession implements FundSessionLocal {
     public void deleteAsset(Long aId) throws NoResultException {
         Asset a = getAsset(aId);
         Fund fund = getFund(a.getFundId());
-        
+
         double fvalue = fund.getValue();
         double currentGreenValue = fund.getGreenValue();
 
@@ -248,11 +257,11 @@ public class FundSession implements FundSessionLocal {
 
         fund.setPercentGreenByValue(newPercent);
         fund.setValue(newValue);
-        
-        List<Asset> assets = fund.getAssets();        
+
+        List<Asset> assets = fund.getAssets();
         assets.remove(a);
         em.remove(a);
-        
+
     }
 
 }
