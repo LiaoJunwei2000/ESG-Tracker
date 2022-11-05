@@ -30,6 +30,11 @@ public class FinancialQuarter implements Serializable {
         this.quarter = quarter;
     }
 
+    public FinancialQuarter() {
+    }
+    
+    
+
     public int getYear() {
         return year;
     }

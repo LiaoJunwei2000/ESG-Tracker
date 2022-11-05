@@ -5,3 +5,5 @@
 /build/
 /ESGTracker-ejb/build/
 /ESGTracker-war/build/
+/dist/
+/ESGTracker-war/dist/
