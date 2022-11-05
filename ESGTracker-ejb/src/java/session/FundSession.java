@@ -118,32 +118,7 @@ public class FundSession implements FundSessionLocal {
         em.remove(fund);
     }
 
-    @Override
-    public void aggregateAssetToFund(Asset a) throws NoResultException {
-        Long fId = a.getFundId();
-        Fund fund = getFund(fId);
-
-        double fvalue = fund.getValue();
-        double currentGreenValue = fund.getGreenValue();
-
-        double avalue = a.getValue();
-        boolean assetIsGreen = a.isIsGreen();
-
-        double newValue = fvalue + avalue;
-        double newPercent;
-
-        if (assetIsGreen) {
-            double newGreen = currentGreenValue + avalue;
-            newPercent = newGreen / newValue * 100;
-            fund.setGreenValue(newGreen);
-        } else {
-            newPercent = currentGreenValue / newValue * 100;
-        }
-
-        fund.setPercentGreenByValue(newPercent);
-        fund.setValue(newValue);
-    }
-
+    
     @Override
     public void createAsset(Asset a) throws NoResultException {
         Long fId = a.getFundId();

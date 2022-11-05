@@ -40,8 +40,6 @@ public interface FundSessionLocal {
     
     public void createAsset(Asset a) throws NoResultException;
     
-    public void aggregateAssetToFund(Asset a) throws NoResultException;
-    
     public void updateAsset(Asset a) throws NoResultException;
     
     public void deleteAsset(Long aId) throws NoResultException;
