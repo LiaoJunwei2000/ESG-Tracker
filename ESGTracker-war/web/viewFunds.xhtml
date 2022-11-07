@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./layout/default.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="title">
+        View Funds
+    </ui:define>
+
+    <ui:define name="content">        
+        <p:dataTable var="fund"
+                     value="#{fundManagedBean.funds}"
+                     resizableColumns="true">
+            <p:column headerText="Id">
+                <h:outputText value="#{fund.id}"/>
+            </p:column>
+            <p:column headerText="Name">
+                <h:outputText value="#{fund.name}"/>
+            </p:column>
+            <p:column headerText="Year">
+                <h:outputText value="#{fund.fyear}"/>
+            </p:column>
+            <p:column headerText="Quarter">
+                <h:outputText value="#{fund.fquarter}"/>
+            </p:column>
+            <p:column headerText="Value">
+                <h:outputText value="#{fund.fvalue}"/>
+            </p:column>
+            <p:column headerText="In UNRPI?">
+                <h:outputText value="Yes" rendered="#{fund.inUNRPI}"/>
+                <h:outputText value="No" rendered="#{!fund.inUNRPI}"/>
+            </p:column>
+            <p:column headerText="In TFCD?">
+                <h:outputText value="Yes" rendered="#{fund.inTFCD}"/>
+                <h:outputText value="No" rendered="#{!fund.inTFCD}"/>
+            </p:column>
+            <p:column headerText="GRESB Rating">
+                <h:outputText value="#{fund.GRESBRating}"/>
+            </p:column>
+            <p:column headerText="Green Value">
+                <h:outputText value="#{fund.greenValue}"/>
+            </p:column>
+            <p:column headerText="Percentage Green">
+                <h:outputText value="#{fund.percentGreenByValue}"/>
+            </p:column>
+        </p:dataTable>
+        <p:commandButton value="Add New Fund" action="addFunds.xhtml"/>
+    </ui:define>
+
+</ui:composition>

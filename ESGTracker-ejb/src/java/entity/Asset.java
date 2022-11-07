@@ -24,14 +24,16 @@ public class Asset implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    private double value;
+    private double avalue;
     private boolean isGreen;
     private String country;
     private String updateUser;
     private RegionEnum region;
     private SectorEnum sector;
+    private int ayear;
+    private int aquarter;
     
-    private FinancialQuarter quarter;
+    //private FinancialQuarter quarter;
     
     private Long fundId;
     
@@ -78,12 +80,12 @@ public class Asset implements Serializable {
         this.name = name;
     }
 
-    public double getValue() {
-        return value;
+    public double getAvalue() {
+        return avalue;
     }
 
-    public void setValue(double value) {
-        this.value = value;
+    public void setAvalue(double avalue) {
+        this.avalue = avalue;
     }
 
     public boolean isIsGreen() {
@@ -126,12 +128,30 @@ public class Asset implements Serializable {
         this.sector = sector;
     }
 
+    /*
     public FinancialQuarter getQuarter() {
         return quarter;
     }
 
     public void setQuarter(FinancialQuarter quarter) {
         this.quarter = quarter;
+    }
+    */
+
+    public int getAyear() {
+        return ayear;
+    }
+
+    public void setAyear(int ayear) {
+        this.ayear = ayear;
+    }
+
+    public int getAquarter() {
+        return aquarter;
+    }
+
+    public void setAquarter(int aquarter) {
+        this.aquarter = aquarter;
     }
     
     

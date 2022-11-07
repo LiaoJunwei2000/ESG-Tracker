@@ -22,12 +22,12 @@ public class FinancialQuarter implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private int year;
-    private int quarter;
+    private int fyear;
+    private int fquarter;
 
-    public FinancialQuarter(int year, int quarter) {
-        this.year = year;
-        this.quarter = quarter;
+    public FinancialQuarter(int fyear, int fquarter) {
+        this.fyear = fyear;
+        this.fquarter = fquarter;
     }
 
     public FinancialQuarter() {
@@ -35,20 +35,20 @@ public class FinancialQuarter implements Serializable {
     
     
 
-    public int getYear() {
-        return year;
+    public int getFyear() {
+        return fyear;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setFyear(int fyear) {
+        this.fyear = fyear;
     }
 
-    public int getQuarter() {
-        return quarter;
+    public int getFquarter() {
+        return fquarter;
     }
 
-    public void setQuarter(int quarter) {
-        this.quarter = quarter;
+    public void setFquarter(int fquarter) {
+        this.fquarter = fquarter;
     }   
     
     public Long getId() {
@@ -89,15 +89,15 @@ public class FinancialQuarter implements Serializable {
     //2 = this < q2 (current fq is earlier than q2)
     //3 = this = q2
     public int compareTo(FinancialQuarter q2) {
-        int q2year = q2.getYear();
-        int q2quart = q2.getQuarter();
+        int q2year = q2.getFyear();
+        int q2quart = q2.getFquarter();
         
-        if(this.year > q2year) {
+        if(this.fyear > q2year) {
             return 1;
-        } else if(this.year == q2year) {
-            if (this.quarter > q2quart) {
+        } else if(this.fyear == q2year) {
+            if (this.fquarter > q2quart) {
                 return 1;
-            } else if(this.quarter == q2quart) {
+            } else if(this.fquarter == q2quart) {
                 return 3;
             } else {
                 return 2;
@@ -109,10 +109,10 @@ public class FinancialQuarter implements Serializable {
     
     
     public static FinancialQuarter getLaterQuarter(FinancialQuarter q1, FinancialQuarter q2) {
-        int q1year = q1.getYear();
-        int q2year = q2.getYear();
-        int q1quart = q1.getQuarter();
-        int q2quart = q2.getQuarter();
+        int q1year = q1.getFyear();
+        int q2year = q2.getFyear();
+        int q1quart = q1.getFquarter();
+        int q2quart = q2.getFquarter();
         
         if(q1year > q2year) {
             return q1;
@@ -133,10 +133,10 @@ public class FinancialQuarter implements Serializable {
     //2 = q2 later
     //3 = same financial quarter
     public static int compareQuarters(FinancialQuarter q1, FinancialQuarter q2) {
-        int q1year = q1.getYear();
-        int q2year = q2.getYear();
-        int q1quart = q1.getQuarter();
-        int q2quart = q2.getQuarter();
+        int q1year = q1.getFyear();
+        int q2year = q2.getFyear();
+        int q1quart = q1.getFquarter();
+        int q2quart = q2.getFquarter();
         
         if(q1year > q2year) {
             return 1;

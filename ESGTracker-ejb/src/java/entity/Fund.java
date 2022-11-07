@@ -32,10 +32,12 @@ public class Fund implements Serializable {
     private int GRESBRating;
     private boolean inUNRPI;
     private boolean inTFCD;
-    private double value;
+    private double fvalue;
     private double greenValue;
     private double percentGreenByValue;
-    private FinancialQuarter quarter;
+    //private FinancialQuarter quarter;
+    private int fyear;
+    private int fquarter;
     
     @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)    
     private List<Asset> assets;    
@@ -114,13 +116,7 @@ public class Fund implements Serializable {
         this.inTFCD = inTFCD;
     }
 
-    public double getValue() {
-        return value;
-    }
-
-    public void setValue(double value) {
-        this.value = value;
-    }
+    
 
     public double getGreenValue() {
         return greenValue;
@@ -128,6 +124,30 @@ public class Fund implements Serializable {
 
     public void setGreenValue(double greenValue) {
         this.greenValue = greenValue;
+    }
+
+    public double getFvalue() {
+        return fvalue;
+    }
+
+    public void setFvalue(double fvalue) {
+        this.fvalue = fvalue;
+    }
+
+    public int getFyear() {
+        return fyear;
+    }
+
+    public void setFyear(int fyear) {
+        this.fyear = fyear;
+    }
+
+    public int getFquarter() {
+        return fquarter;
+    }
+
+    public void setFquarter(int fquarter) {
+        this.fquarter = fquarter;
     }
 
     
@@ -140,6 +160,7 @@ public class Fund implements Serializable {
         this.percentGreenByValue = percentGreenByValue;
     }
 
+    /*
     public FinancialQuarter getQuarter() {
         return quarter;
     }
@@ -147,6 +168,7 @@ public class Fund implements Serializable {
     public void setQuarter(FinancialQuarter quarter) {
         this.quarter = quarter;
     }
+*/
 
     public List<Asset> getAssets() {
         return assets;

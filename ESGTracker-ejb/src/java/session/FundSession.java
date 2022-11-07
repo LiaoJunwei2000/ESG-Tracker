@@ -15,6 +15,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -87,15 +88,16 @@ public class FundSession implements FundSessionLocal {
     @Override
     public void createFund(Fund f) {
         em.persist(f);
+        
     }
 
     @Override
     public void updateFund(Fund f) throws NoResultException {
         Fund oldf = getFund(f.getId());
 
-        oldf.setValue(f.getValue());
-        oldf.setQuarter(f.getQuarter());
-        oldf.setPercentGreenByValue(f.getPercentGreenByValue());
+        oldf.setFyear(f.getFyear());
+        oldf.setFquarter(f.getFquarter());
+        oldf.setFundIdentifier(f.getFundIdentifier());
         oldf.setName(f.getName());
         oldf.setInUNRPI(f.isInUNRPI());
         oldf.setInTFCD(f.isInTFCD());
@@ -124,10 +126,10 @@ public class FundSession implements FundSessionLocal {
         Long fId = a.getFundId();
         Fund fund = getFund(fId);
 
-        double fvalue = fund.getValue();
+        double fvalue = fund.getFvalue();
         double currentGreenValue = fund.getGreenValue();
 
-        double avalue = a.getValue();
+        double avalue = a.getAvalue();
         boolean assetIsGreen = a.isIsGreen();
 
         double newValue = fvalue + avalue;
@@ -142,7 +144,7 @@ public class FundSession implements FundSessionLocal {
         }
 
         fund.setPercentGreenByValue(newPercent);
-        fund.setValue(newValue);
+        fund.setFvalue(newValue);
 
         //aggregateAssetToFund(a);
         List<Asset> assets = fund.getAssets();
@@ -159,12 +161,12 @@ public class FundSession implements FundSessionLocal {
         Long fId = a.getFundId();
         Fund fund = getFund(fId);
 
-        double oldAssetValue = oldA.getValue();
-        double newAssetValue = a.getValue();
+        double oldAssetValue = oldA.getAvalue();
+        double newAssetValue = a.getAvalue();
         boolean oldIsGreen = oldA.isIsGreen();
         boolean newIsGreen = a.isIsGreen();
 
-        double fundValue = fund.getValue();
+        double fundValue = fund.getFvalue();
         double fundGreen = fund.getGreenValue();
 
         double newTotalValue = fundValue - oldAssetValue + newAssetValue;
@@ -195,11 +197,11 @@ public class FundSession implements FundSessionLocal {
 
         percentGreen = fundGreen / newTotalValue * 100;
 
-        fund.setValue(newTotalValue);
+        fund.setFvalue(newTotalValue);
         fund.setGreenValue(fundGreen);
         fund.setPercentGreenByValue(percentGreen);
 
-        oldA.setValue(newAssetValue);
+        oldA.setAvalue(newAssetValue);
         oldA.setCountry(a.getCountry());
         oldA.setIsGreen(a.isIsGreen());
         oldA.setName(a.getName());
@@ -213,10 +215,10 @@ public class FundSession implements FundSessionLocal {
         Asset a = getAsset(aId);
         Fund fund = getFund(a.getFundId());
 
-        double fvalue = fund.getValue();
+        double fvalue = fund.getFvalue();
         double currentGreenValue = fund.getGreenValue();
 
-        double avalue = a.getValue();
+        double avalue = a.getAvalue();
         boolean assetIsGreen = a.isIsGreen();
 
         double newValue = fvalue - avalue;
@@ -231,12 +233,25 @@ public class FundSession implements FundSessionLocal {
         }
 
         fund.setPercentGreenByValue(newPercent);
-        fund.setValue(newValue);
+        fund.setFvalue(newValue);
 
         List<Asset> assets = fund.getAssets();
         assets.remove(a);
         em.remove(a);
 
+    }
+
+    @Override
+    public List<Fund> searchFunds(String name) {
+        Query q;
+        if (name != null) {
+            q = em.createQuery("SELECT f FROM Fund f WHERE LOWER(f.name) LIKE :name");
+            q.setParameter("name", "%" + name.toLowerCase() + "%");
+        } else {
+            q = em.createQuery("SELECT f FROM Fund f");
+        }
+        
+        return q.getResultList();
     }
 
 }

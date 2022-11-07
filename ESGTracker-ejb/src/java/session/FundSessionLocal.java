@@ -9,6 +9,7 @@ import entity.Asset;
 import entity.Fund;
 import entity.FundUser;
 import exception.NoResultException;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -43,5 +44,7 @@ public interface FundSessionLocal {
     public void updateAsset(Asset a) throws NoResultException;
     
     public void deleteAsset(Long aId) throws NoResultException;
+    
+    public List<Fund> searchFunds(String name);
     
 }
