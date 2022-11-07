@@ -5,6 +5,7 @@
  */
 package managedbean;
 
+import entity.Asset;
 import entity.Fund;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
@@ -40,6 +41,8 @@ public class FundManagedBean implements Serializable {
     private List<Fund> funds;
     private Fund selectedFund;
     private Long fundId;
+    
+    private List<Asset> assets;
 
     public FundManagedBean() {
     }
@@ -68,6 +71,7 @@ public class FundManagedBean implements Serializable {
         try {
             this.selectedFund
                     = fundSessionLocal.getFund(fundId);
+            assets = this.selectedFund.getAssets();
             fundName = this.selectedFund.getName();
             fundIdentifier = this.selectedFund.getFundIdentifier();
             fyear = this.selectedFund.getFyear();
@@ -222,6 +226,14 @@ public class FundManagedBean implements Serializable {
 
     public void setFundId(Long fundId) {
         this.fundId = fundId;
+    }
+
+    public List<Asset> getAssets() {
+        return assets;
+    }
+
+    public void setAssets(List<Asset> assets) {
+        this.assets = assets;
     }
 
 }
