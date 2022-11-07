@@ -50,21 +50,21 @@
                     <h:outputText value="#{fund.percentGreenByValue}"/>
                 </p:column>
                 <p:column>
-                <p:commandButton icon="fa fa-fw fa-search">
-                    …
-                </p:commandButton>
-                <p:button icon="fa fa-fw fa-edit" title="Update" outcome="editFund">
-                    <f:param name="fundId" value="#{fund.id}" />
-                </p:button>
-                <p:commandButton icon="fa fa-fw fa-remove"
-                                 action="#{fundManagedBean.deleteFund}" update=":form"
-                                 title="Delete">
-                    <f:param name="fundId" value="#{fund.id}" />
-                </p:commandButton>
-            </p:column>
+                    <p:button icon="fa fa-fw fa-search" title="View" outcome="viewFundDetail">
+                        <f:param name="fundId" value="#{fund.id}" />
+                    </p:button>
+                    <p:button icon="fa fa-fw fa-edit" title="Update" outcome="editFund">
+                        <f:param name="fundId" value="#{fund.id}" />
+                    </p:button>
+                    <p:commandButton icon="fa fa-fw fa-remove"
+                                     action="#{fundManagedBean.deleteFund}" update=":form"
+                                     title="Delete">
+                        <f:param name="fundId" value="#{fund.id}" />
+                    </p:commandButton>
+                </p:column>
             </p:dataTable>
             <p:commandButton value="Add New Fund" action="addFunds.xhtml?faces-redirect=true"/>
-            
+
         </h:form>
     </ui:define>
 
