@@ -14,10 +14,10 @@
     <ui:define name="content">
         <f:metadata>
             <!-- to get the cId and bind it to a cId in managed bean -->
-            <f:viewParam name="fId" value="#{ManagedBean.fId}" />
+            <f:viewParam name="fundId" value="#{fundManagedBean.fundId}" />
             <!-- load the selected customer -->
             <f:event type="preRenderView"
-                     listener="#{customerManagedBean.loadSelectedCustomer}"/>
+                     listener="#{fundManagedBean.loadSelectedFund}"/>
         </f:metadata>
         <h:form id="form">
             <!-- using growl -->
@@ -42,8 +42,8 @@
                 <p:selectBooleanCheckbox id="unrpi" value="#{fundManagedBean.unrpi}"/>
             </p:panelGrid>
             <p:commandButton value="Submit"
-                             actionListener="#{customerManagedBean.updateCustomer}"
-                             action="searchCustomers.xhtml?faces-redirect=true"
+                             actionListener="#{fundManagedBean.updateFund}"
+                             action="viewFunds.xhtml?faces-redirect=true"
                              update=":form"/>
         </h:form>
     </ui:define>

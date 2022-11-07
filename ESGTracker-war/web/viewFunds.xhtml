@@ -4,50 +4,68 @@
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./layout/default.xhtml"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <ui:define name="title">
         View Funds
     </ui:define>
 
-    <ui:define name="content">        
-        <p:dataTable var="fund"
-                     value="#{fundManagedBean.funds}"
-                     resizableColumns="true">
-            <p:column headerText="Id">
-                <h:outputText value="#{fund.id}"/>
+    <ui:define name="content">
+        <h:form id="form">
+            <p:growl id="growl" showDetail="true" sticky="true" />        
+            <p:dataTable var="fund"
+                         value="#{fundManagedBean.funds}"
+                         resizableColumns="true">
+                <p:column headerText="Id">
+                    <h:outputText value="#{fund.id}"/>
+                </p:column>
+                <p:column headerText="Name">
+                    <h:outputText value="#{fund.name}"/>
+                </p:column>
+                <p:column headerText="Year">
+                    <h:outputText value="#{fund.fyear}"/>
+                </p:column>
+                <p:column headerText="Quarter">
+                    <h:outputText value="#{fund.fquarter}"/>
+                </p:column>
+                <p:column headerText="Value">
+                    <h:outputText value="#{fund.fvalue}"/>
+                </p:column>
+                <p:column headerText="In UNRPI?">
+                    <h:outputText value="Yes" rendered="#{fund.inUNRPI}"/>
+                    <h:outputText value="No" rendered="#{!fund.inUNRPI}"/>
+                </p:column>
+                <p:column headerText="In TFCD?">
+                    <h:outputText value="Yes" rendered="#{fund.inTFCD}"/>
+                    <h:outputText value="No" rendered="#{!fund.inTFCD}"/>
+                </p:column>
+                <p:column headerText="GRESB Rating">
+                    <h:outputText value="#{fund.GRESBRating}"/>
+                </p:column>
+                <p:column headerText="Green Value">
+                    <h:outputText value="#{fund.greenValue}"/>
+                </p:column>
+                <p:column headerText="Percentage Green">
+                    <h:outputText value="#{fund.percentGreenByValue}"/>
+                </p:column>
+                <p:column>
+                <p:commandButton icon="fa fa-fw fa-search">
+                    …
+                </p:commandButton>
+                <p:button icon="fa fa-fw fa-edit" title="Update" outcome="editFund">
+                    <f:param name="fundId" value="#{fund.id}" />
+                </p:button>
+                <p:commandButton icon="fa fa-fw fa-remove"
+                                 action="#{fundManagedBean.deleteFund}" update=":form"
+                                 title="Delete">
+                    <f:param name="fundId" value="#{fund.id}" />
+                </p:commandButton>
             </p:column>
-            <p:column headerText="Name">
-                <h:outputText value="#{fund.name}"/>
-            </p:column>
-            <p:column headerText="Year">
-                <h:outputText value="#{fund.fyear}"/>
-            </p:column>
-            <p:column headerText="Quarter">
-                <h:outputText value="#{fund.fquarter}"/>
-            </p:column>
-            <p:column headerText="Value">
-                <h:outputText value="#{fund.fvalue}"/>
-            </p:column>
-            <p:column headerText="In UNRPI?">
-                <h:outputText value="Yes" rendered="#{fund.inUNRPI}"/>
-                <h:outputText value="No" rendered="#{!fund.inUNRPI}"/>
-            </p:column>
-            <p:column headerText="In TFCD?">
-                <h:outputText value="Yes" rendered="#{fund.inTFCD}"/>
-                <h:outputText value="No" rendered="#{!fund.inTFCD}"/>
-            </p:column>
-            <p:column headerText="GRESB Rating">
-                <h:outputText value="#{fund.GRESBRating}"/>
-            </p:column>
-            <p:column headerText="Green Value">
-                <h:outputText value="#{fund.greenValue}"/>
-            </p:column>
-            <p:column headerText="Percentage Green">
-                <h:outputText value="#{fund.percentGreenByValue}"/>
-            </p:column>
-        </p:dataTable>
-        <p:commandButton value="Add New Fund" action="addFunds.xhtml?faces-redirect=true"/>
+            </p:dataTable>
+            <p:commandButton value="Add New Fund" action="addFunds.xhtml?faces-redirect=true"/>
+            
+        </h:form>
     </ui:define>
 
 </ui:composition>
