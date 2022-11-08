@@ -5,10 +5,15 @@
 package managedbean;
 
 import com.sun.corba.se.impl.io.IIOPInputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.event.ActionEvent;
+import javax.faces.view.ViewScoped;
 import org.primefaces.model.chart.Axis;
 import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.CategoryAxis;
@@ -20,8 +25,8 @@ import org.primefaces.model.chart.LineChartModel;
  * @author plant
  */
 @Named(value = "lineChartManagedBean")
-@RequestScoped
-public class LineChartManagedBean {
+@ViewScoped
+public class LineChartManagedBean implements Serializable{
 
     private LineChartModel model;
     private LineChartModel portGresbModel;
@@ -36,12 +41,17 @@ public class LineChartManagedBean {
     private List<Double> fundGreenPct;
     private List<Double> regionGresb;
     private List<Double> sectorGresb;
-    
+
     private String fundIdentifier;
 
     private List<Double> testData;
 
     public LineChartManagedBean() {
+
+    }
+
+    @PostConstruct
+    public void init() {
         dataInitialization();
         createPortGresbModel();
         createPortGreenPctModel();
@@ -68,7 +78,7 @@ public class LineChartManagedBean {
         setFundIdentifier("Fund A");
     }
 
-    private void createPortGresbModel() {
+    public void createPortGresbModel() {
 
 //      setPortGresb(chartSessionBean.portGresb);
         setPortGresb(getTestData());
@@ -97,7 +107,7 @@ public class LineChartManagedBean {
 
     }
 
-    private void createPortGreenPctModel() {
+    public void createPortGreenPctModel() {
         setPortGreenPct(getTestData());
         setPortGreenPctModel(new LineChartModel());
         ChartSeries scores = new ChartSeries();
@@ -123,7 +133,7 @@ public class LineChartManagedBean {
 
     }
 
-    private void createFundGresbModel() {
+    public void createFundGresbModel() {
         setFundGresb(getTestData());
         setFundGresbModel(new LineChartModel());
         ChartSeries scores = new ChartSeries();
@@ -140,7 +150,7 @@ public class LineChartManagedBean {
         scores.set("2022 Q3", getFundGresb().get(0));
         getFundGresbModel().addSeries(scores);
 
-        getFundGresbModel().setTitle(fundIdentifier+" Quarterly GRESB");
+        getFundGresbModel().setTitle(fundIdentifier + " Quarterly GRESB");
         getFundGresbModel().setLegendPosition("e");
         getFundGresbModel().setShowPointLabels(true);
         getFundGresbModel().getAxes().put(AxisType.X, new CategoryAxis("Quarter"));
@@ -148,7 +158,7 @@ public class LineChartManagedBean {
         yAxis.setLabel("GRESB Score");
     }
 
-    private void createFundGreenPctModel() {
+    public void createFundGreenPctModel() {
         setFundGreenPct(getTestData());
         setFundGreenPctModel(new LineChartModel());
         ChartSeries scores = new ChartSeries();
@@ -165,15 +175,17 @@ public class LineChartManagedBean {
         scores.set("2022 Q3", getFundGreenPct().get(0));
         getFundGreenPctModel().addSeries(scores);
 
-        getFundGreenPctModel().setTitle(fundIdentifier+" Green Building %");
+        getFundGreenPctModel().setTitle(fundIdentifier + " Green Building %");
         getFundGreenPctModel().setLegendPosition("e");
         getFundGreenPctModel().setShowPointLabels(true);
         getFundGreenPctModel().getAxes().put(AxisType.X, new CategoryAxis("Quarter"));
         Axis yAxis = getFundGreenPctModel().getAxis(AxisType.Y);
         yAxis.setLabel("Green Building %");
     }
+    
+    
 
-    private void createRegionGresbModel() {
+    public void createRegionGresbModel() {
         setRegionGresb(getTestData());
         setRegionGresbModel(new LineChartModel());
         ChartSeries scores = new ChartSeries();
@@ -193,7 +205,7 @@ public class LineChartManagedBean {
         yAxis.setLabel("GRESB Score");
     }
 
-    private void createSectorGresbModel() {
+    public void createSectorGresbModel() {
         setSectorGresb(getTestData());
         setSectorGresbModel(new LineChartModel());
         ChartSeries scores = new ChartSeries();
