@@ -64,6 +64,7 @@ public class FundManagedBean implements Serializable {
     @PostConstruct
     public void init() {
         setFunds(fundSessionLocal.searchFunds(null));
+        setAssets(fundSessionLocal.searchAssets(null));
     }
 
     public void addFund(ActionEvent evt) {
@@ -71,7 +72,7 @@ public class FundManagedBean implements Serializable {
         f.setName(fundName);
         f.setFundIdentifier(fundIdentifier);
         f.setFyear(fyear);
-        f.setFyear(fyear);
+        f.setFquarter(fquarter);
         f.setGRESBRating(gresb);
         f.setInTFCD(tfcd);
         f.setInUNRPI(unrpi);
@@ -147,6 +148,7 @@ public class FundManagedBean implements Serializable {
         a.setAvalue(avalue);
         a.setIsGreen(isGreen);
         a.setCountry(country);
+        a.setFundName(fundName);
 
         try {
             fundSessionLocal.createAsset(a);
@@ -171,7 +173,7 @@ public class FundManagedBean implements Serializable {
             assetFundId = this.selectedAsset.getFundId();
             isGreen = this.selectedAsset.isIsGreen();
             country = this.selectedAsset.getCountry();
-            assetFundName = fundSessionLocal.getFund(this.selectedAsset.getFundId()).getName();
+            assetFundName = this.selectedAsset.getFundName();
         } catch (Exception e) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to load asset"));
         }
@@ -184,6 +186,7 @@ public class FundManagedBean implements Serializable {
         selectedAsset.setAyear(ayear);
         selectedAsset.setAquarter(aquarter);
         selectedAsset.setFundId(assetFundId);
+        selectedAsset.setFundName(assetFundName);
         selectedAsset.setIsGreen(isGreen);
         selectedAsset.setCountry(country);
 
