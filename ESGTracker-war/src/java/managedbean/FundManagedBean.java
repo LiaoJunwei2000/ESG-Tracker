@@ -7,11 +7,14 @@ package managedbean;
 
 import entity.Asset;
 import entity.Fund;
+import exception.NoResultException;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -43,6 +46,11 @@ public class FundManagedBean implements Serializable {
     private Long fundId;
     
     private List<Asset> assets;
+    
+    private String assetName;
+    private double avalue;
+    private boolean isGreen;
+    private String country;
 
     public FundManagedBean() {
     }
@@ -138,6 +146,30 @@ public class FundManagedBean implements Serializable {
         }
         context.addMessage(null, new FacesMessage("Success", "Successfully deleted fund entry"));
         init();
+    }
+    
+    public void addAsset(ActionEvent evt) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map<String, String> params = context.getExternalContext()
+                .getRequestParameterMap();
+        String fIdStr = params.get("fundId");
+        Long fId = Long.parseLong(fIdStr);
+        Asset a = new Asset();
+        a.setFundId(fundId);
+        a.setAyear(fyear);
+        a.setAquarter(fquarter);
+        a.setName(assetName);
+        a.setAvalue(avalue);
+        a.setIsGreen(isGreen);
+        a.setCountry(country);
+
+        try {
+            fundSessionLocal.createAsset(a);
+        } catch (Exception e) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to create asset"));
+        }
+        
+        context.addMessage(null, new FacesMessage("Success", "Successfully added new asset entry"));
     }
 
     public FundSessionLocal getFundSessionLocal() {
@@ -236,4 +268,37 @@ public class FundManagedBean implements Serializable {
         this.assets = assets;
     }
 
+    public String getAssetName() {
+        return assetName;
+    }
+
+    public void setAssetName(String assetName) {
+        this.assetName = assetName;
+    }
+
+    public double getAvalue() {
+        return avalue;
+    }
+
+    public void setAvalue(double avalue) {
+        this.avalue = avalue;
+    }
+
+    public boolean isIsGreen() {
+        return isGreen;
+    }
+
+    public void setIsGreen(boolean isGreen) {
+        this.isGreen = isGreen;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    
 }
