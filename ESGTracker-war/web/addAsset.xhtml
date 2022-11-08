@@ -44,7 +44,9 @@
             <br />
             <p:commandButton value="Submit"
                              actionListener="#{fundManagedBean.addAsset}"
+                             action="viewFunds.xhtml?faces-redirect=true"
                              update=":form"/>
+            <br/>
             <p:button value="Back to List of Assets" title="ListAsset" outcome="viewFundDetail">
             <f:param name="fundId" value="#{fundManagedBean.fundId}" />
         </p:button>

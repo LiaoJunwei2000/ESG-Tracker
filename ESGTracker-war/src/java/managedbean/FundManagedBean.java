@@ -150,10 +150,6 @@ public class FundManagedBean implements Serializable {
     
     public void addAsset(ActionEvent evt) {
         FacesContext context = FacesContext.getCurrentInstance();
-        Map<String, String> params = context.getExternalContext()
-                .getRequestParameterMap();
-        String fIdStr = params.get("fundId");
-        Long fId = Long.parseLong(fIdStr);
         Asset a = new Asset();
         a.setFundId(fundId);
         a.setAyear(fyear);
@@ -168,8 +164,6 @@ public class FundManagedBean implements Serializable {
         } catch (Exception e) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to create asset"));
         }
-        
-        context.addMessage(null, new FacesMessage("Success", "Successfully added new asset entry"));
     }
 
     public FundSessionLocal getFundSessionLocal() {
