@@ -5,6 +5,7 @@
  */
 package managedbean;
 
+import entity.Asset;
 import entity.Fund;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
@@ -29,8 +30,10 @@ public class FilterManagedBean implements Serializable {
     private FundManagedBean fundManagedBean;
 
     private List<Fund> funds;
-
     private List<Fund> filteredFunds;
+    
+    private List<Asset> assets;
+    private List<Asset> filteredAssets;
     
     public FilterManagedBean() {
     }
@@ -38,9 +41,10 @@ public class FilterManagedBean implements Serializable {
     @PostConstruct
     public void init() {
         funds = fundManagedBean.getFunds();
+        assets = fundManagedBean.getAssets();
     }
     
-    public boolean globalFilterFunction(Object value, Object filter, Locale locale) {
+    public boolean globalFilterFunctionFunds(Object value, Object filter, Locale locale) {
         String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
         if (filterText == null || filterText.equals("")) {
             return true;
@@ -58,6 +62,25 @@ public class FilterManagedBean implements Serializable {
                 || fund.getGRESBRating() == filterInt
                 || fund.getPercentGreenByValue() == filterInt
                 || fund.getGreenValue() == filterInt;              
+    }
+    
+    public boolean globalFilterFunctionAssets(Object value, Object filter, Locale locale) {
+        String filterText = (filter == null) ? null : filter.toString().trim().toLowerCase();
+        if (filterText == null || filterText.equals("")) {
+            return true;
+        }
+        int filterInt = getInteger(filterText);
+
+        Asset asset = (Asset) value;
+        return asset.getName().toLowerCase().contains(filterText)
+                || asset.getFundName().toLowerCase().contains(filterText)
+                || asset.getAyear() == filterInt
+                || asset.getAquarter() == filterInt
+                || asset.getAvalue() == filterInt
+                || asset.getCountry().toLowerCase().contains(filterText)
+                || asset.getRegion().toLowerCase().contains(filterText)
+                || asset.getSector().toLowerCase().contains(filterText)
+                || (asset.isIsGreen() ? "Yes" : "No").contains(filterText);             
     }
     
     private int getInteger(String string) {
@@ -84,5 +107,30 @@ public class FilterManagedBean implements Serializable {
     public void setFilteredFunds(List<Fund> filteredFunds) {
         this.filteredFunds = filteredFunds;
     }
+
+    public FundManagedBean getFundManagedBean() {
+        return fundManagedBean;
+    }
+
+    public void setFundManagedBean(FundManagedBean fundManagedBean) {
+        this.fundManagedBean = fundManagedBean;
+    }
+
+    public List<Asset> getAssets() {
+        return assets;
+    }
+
+    public void setAssets(List<Asset> assets) {
+        this.assets = assets;
+    }
+
+    public List<Asset> getFilteredAssets() {
+        return filteredAssets;
+    }
+
+    public void setFilteredAssets(List<Asset> filteredAssets) {
+        this.filteredAssets = filteredAssets;
+    }
+    
     
 }

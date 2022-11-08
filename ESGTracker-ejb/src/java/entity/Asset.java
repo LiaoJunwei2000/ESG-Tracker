@@ -28,8 +28,8 @@ public class Asset implements Serializable {
     private boolean isGreen;
     private String country;
     private String updateUser;
-    private RegionEnum region;
-    private SectorEnum sector;
+    private String region;
+    private String sector;
     private int ayear;
     private int aquarter;
     
@@ -113,19 +113,19 @@ public class Asset implements Serializable {
         this.updateUser = updateUser;
     }
 
-    public RegionEnum getRegion() {
+    public String getRegion() {
         return region;
     }
 
-    public void setRegion(RegionEnum region) {
+    public void setRegion(String region) {
         this.region = region;
     }
 
-    public SectorEnum getSector() {
+    public String getSector() {
         return sector;
     }
 
-    public void setSector(SectorEnum sector) {
+    public void setSector(String sector) {
         this.sector = sector;
     }
 
