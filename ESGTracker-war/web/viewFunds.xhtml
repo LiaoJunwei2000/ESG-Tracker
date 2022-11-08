@@ -16,37 +16,98 @@
             <p:growl id="growl" showDetail="true" sticky="true" />        
             <p:dataTable var="fund"
                          value="#{fundManagedBean.funds}"
-                         resizableColumns="true">
-                <p:column headerText="Id">
+                         widgetVar="fundsTable"
+                         resizableColumns="true"
+                         emptyMessage="No funds found with given criteria" 
+                         filteredValue="#{filterManagedBean.filteredFunds}">
+
+                <f:facet name="header">
+                    <h3 style="float: left">Fund List</h3><br/><br/>
+                    <p:outputPanel style="float: right">
+                        <h:outputText value="Search all fields:  " />
+                        <p:inputText id="globalFilter" onkeyup="PF('fundsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                    </p:outputPanel><br/><br/>
+                </f:facet>
+
+                <p:column headerText="Id" sortBy='#{fund.id}'>
                     <h:outputText value="#{fund.id}"/>
                 </p:column>
-                <p:column headerText="Name">
+                <p:column headerText="Fund Identifier" sortBy="#{fund.fundIdentifier}" filterBy="#{fund.fundIdentifier}" filterMatchMode="contains">
+                    <h:outputText value="#{fund.fundIdentifier}"/>
+                </p:column>
+                <p:column headerText="Name" sortBy="#{fund.name}" filterBy="#{fund.name}" filterMatchMode="contains">
                     <h:outputText value="#{fund.name}"/>
                 </p:column>
-                <p:column headerText="Year">
+                <p:column headerText="Year" sortBy="#{fund.fyear}" filterBy="#{fund.fyear}" filterMatchMode="contains">
+                    <f:facet name="filter">
+                        <p:spinner onchange="PF('fundsTable').filter()" styleClass="year-spinner custom-filter">
+                            <f:converter converterId="javax.faces.Integer" />
+                        </p:spinner>
+                    </f:facet>
                     <h:outputText value="#{fund.fyear}"/>
                 </p:column>
-                <p:column headerText="Quarter">
+                <p:column headerText="Quarter" sortBy="#{fund.fquarter}" filterBy="#{fund.fquarter}" filterMatchMode="contains">
+                    <f:facet name="filter">
+                        <p:spinner onchange="PF('fundsTable').filter()" styleClass="year-spinner custom-filter">
+                            <f:converter converterId="javax.faces.Integer" />
+                        </p:spinner>
+                    </f:facet>
                     <h:outputText value="#{fund.fquarter}"/>
                 </p:column>
-                <p:column headerText="Value">
+                <p:column headerText="Value" sortBy="#{fund.fvalue}" filterBy="#{fund.fvalue}" filterMatchMode="equals">
+                    <f:facet name="filter">
+                        <p:spinner onchange="PF('fundsTable').filter()" styleClass="year-spinner custom-filter">
+                            <f:converter converterId="javax.faces.Integer" />
+                        </p:spinner>
+                    </f:facet>
                     <h:outputText value="#{fund.fvalue}"/>
                 </p:column>
-                <p:column headerText="In UNRPI?">
+                <p:column headerText="In UNRPI?" sortBy="#{fund.inUNRPI}" filterBy="#{fund.inUNRPI}" filterMatchMode="equals">
+                    <f:facet name="filter">
+                        <p:selectOneMenu onchange="PF('fundsTable').filter()" styleClass="custom-filter">
+                            <f:converter converterId="javax.faces.Boolean" />
+                            <f:selectItem itemLabel="All" itemValue="" />
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneMenu>
+                    </f:facet>
                     <h:outputText value="Yes" rendered="#{fund.inUNRPI}"/>
                     <h:outputText value="No" rendered="#{!fund.inUNRPI}"/>
                 </p:column>
-                <p:column headerText="In TFCD?">
+                <p:column headerText="In TFCD?" sortBy="#{fund.inTFCD}" filterBy="#{fund.inTFCD}" filterMatchMode="equals">
+                    <f:facet name="filter">
+                        <p:selectOneMenu onchange="PF('fundsTable').filter()" styleClass="custom-filter">
+                            <f:converter converterId="javax.faces.Boolean" />
+                            <f:selectItem itemLabel="All" itemValue="" />
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneMenu>
+                    </f:facet>
                     <h:outputText value="Yes" rendered="#{fund.inTFCD}"/>
                     <h:outputText value="No" rendered="#{!fund.inTFCD}"/>
                 </p:column>
-                <p:column headerText="GRESB Rating">
+                <p:column headerText="GRESB Rating" sortBy="#{fund.GRESBRating}" filterBy="#{fund.GRESBRating}" filterMatchMode="equals">
+                    <f:facet name="filter">
+                        <p:spinner onchange="PF('fundsTable').filter()" styleClass="year-spinner custom-filter">
+                            <f:converter converterId="javax.faces.Integer" />
+                        </p:spinner>
+                    </f:facet>
                     <h:outputText value="#{fund.GRESBRating}"/>
                 </p:column>
-                <p:column headerText="Green Value">
+                <p:column headerText="Green Value" sortBy="#{fund.greenValue}" filterBy="#{fund.greenValue}" filterMatchMode="equals">
+                    <f:facet name="filter">
+                        <p:spinner onchange="PF('fundsTable').filter()" styleClass="year-spinner custom-filter">
+                            <f:converter converterId="javax.faces.Integer" />
+                        </p:spinner>
+                    </f:facet>
                     <h:outputText value="#{fund.greenValue}"/>
                 </p:column>
-                <p:column headerText="% Green">
+                <p:column headerText="% Green" sortBy="#{fund.percentGreenByValue}" filterBy="#{fund.percentGreenByValue}" filterMatchMode="equals">
+                    <f:facet name="filter">
+                        <p:spinner onchange="PF('fundsTable').filter()" styleClass="year-spinner custom-filter">
+                            <f:converter converterId="javax.faces.Integer" />
+                        </p:spinner>
+                    </f:facet>
                     <h:outputText value="#{fund.percentGreenByValue}"/>
                 </p:column>
                 <p:column>
