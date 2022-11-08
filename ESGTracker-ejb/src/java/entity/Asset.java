@@ -36,6 +36,7 @@ public class Asset implements Serializable {
     //private FinancialQuarter quarter;
     
     private Long fundId;
+    private String fundName;
     
     //private CsvFile csvFile;
 
@@ -171,5 +172,14 @@ public class Asset implements Serializable {
 //    public void setCsvFile(CsvFile csvFile) {
 //        this.csvFile = csvFile;
 //    }
+
+    public String getFundName() {
+        return fundName;
+    }
+
+    public void setFundName(String fundName) {
+        this.fundName = fundName;
+    }
+    
     
 }

@@ -207,6 +207,7 @@ public class FundSession implements FundSessionLocal {
         oldA.setName(a.getName());
         oldA.setRegion(a.getRegion());
         oldA.setSector(a.getSector());
+        oldA.setFundName(fund.getName());
 
     }
 
@@ -249,6 +250,19 @@ public class FundSession implements FundSessionLocal {
             q.setParameter("name", "%" + name.toLowerCase() + "%");
         } else {
             q = em.createQuery("SELECT f FROM Fund f");
+        }
+        
+        return q.getResultList();
+    }
+
+    @Override
+    public List<Asset> searchAssets(String name) {
+        Query q;
+        if (name != null) {
+            q = em.createQuery("SELECT a FROM Asset a WHERE LOWER(a.name) LIKE :name");
+            q.setParameter("name", "%" + name.toLowerCase() + "%");
+        } else {
+            q = em.createQuery("SELECT a FROM Asset a");
         }
         
         return q.getResultList();

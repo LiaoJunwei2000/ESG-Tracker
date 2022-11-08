@@ -47,4 +47,6 @@ public interface FundSessionLocal {
     
     public List<Fund> searchFunds(String name);
     
+    public List<Asset> searchAssets(String name);
+    
 }
