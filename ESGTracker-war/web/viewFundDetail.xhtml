@@ -19,39 +19,51 @@
             <f:event type="preRenderView"
                      listener="#{fundManagedBean.loadSelectedFund}"/>
         </f:metadata>
-        <h3>Asset List</h3>
-        <p:dataTable var="asset"
-                     value="#{fundManagedBean.assets}"
-                     resizableColumns="true">
-            <p:column headerText="Id">
-                <h:outputText value="#{asset.id}"/>
-            </p:column>
-            <p:column headerText="Name">
-                <h:outputText value="#{asset.name}"/>
-            </p:column>
-            <p:column headerText="Year">
-                <h:outputText value="#{asset.ayear}"/>
-            </p:column>
-            <p:column headerText="Quarter">
-                <h:outputText value="#{asset.aquarter}"/>
-            </p:column>
-            <p:column headerText="Value">
-                <h:outputText value="#{asset.avalue}"/>
-            </p:column>
-            <p:column headerText="Is Green?">
-                <h:outputText value="Yes" rendered="#{asset.isGreen}"/>
-                <h:outputText value="No" rendered="#{!asset.isGreen}"/>
-            </p:column>
-            <p:column headerText="Country">
-                <h:outputText value="#{asset.country}"/>
-            </p:column>
-        </p:dataTable>
-        <br/>
-        <p:button value="Add Asset" title="AddAsset" outcome="addAsset">
-            <f:param name="fundId" value="#{fundManagedBean.fundId}" />
-        </p:button>
-        <br/>
-        <a href="viewFunds.xhtml">Back</a>
+        <h:form id="form">
+            <h3>Asset List of #{fundManagedBean.fundName}</h3>
+            <p:dataTable var="asset"
+                         value="#{fundManagedBean.assets}"
+                         resizableColumns="true">
+                <p:column headerText="Id">
+                    <h:outputText value="#{asset.id}"/>
+                </p:column>
+                <p:column headerText="Name">
+                    <h:outputText value="#{asset.name}"/>
+                </p:column>
+                <p:column headerText="Year">
+                    <h:outputText value="#{asset.ayear}"/>
+                </p:column>
+                <p:column headerText="Quarter">
+                    <h:outputText value="#{asset.aquarter}"/>
+                </p:column>
+                <p:column headerText="Value">
+                    <h:outputText value="#{asset.avalue}"/>
+                </p:column>
+                <p:column headerText="Is Green?">
+                    <h:outputText value="Yes" rendered="#{asset.isGreen}"/>
+                    <h:outputText value="No" rendered="#{!asset.isGreen}"/>
+                </p:column>
+                <p:column headerText="Country of Origin">
+                    <h:outputText value="#{asset.country}"/>
+                </p:column>
+                <p:column>
+                    <p:button icon="fa fa-fw fa-edit" title="Update" outcome="editAsset">
+                        <f:param name="assetId" value="#{asset.id}" />
+                    </p:button>
+                    <p:commandButton icon="fa fa-fw fa-remove"
+                                     action="#{fundManagedBean.deleteAsset}" update=":form"
+                                     title="Delete">
+                        <f:param name="assetId" value="#{asset.id}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+            <br/>
+            <p:button value="Add Asset" title="AddAsset" outcome="addAsset">
+                <f:param name="fundId" value="#{fundManagedBean.fundId}" />
+            </p:button>
+            <br/>
+            <a href="viewFunds.xhtml">Back</a>
+        </h:form>
     </ui:define>
 
 </ui:composition>
