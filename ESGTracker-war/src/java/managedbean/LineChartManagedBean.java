@@ -4,6 +4,9 @@
  */
 package managedbean;
 
+import com.sun.corba.se.impl.io.IIOPInputStream;
+import java.util.ArrayList;
+import java.util.List;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import org.primefaces.model.chart.Axis;
@@ -27,26 +30,62 @@ public class LineChartManagedBean {
     private LineChartModel fundGreenPctModel;
     private LineChartModel regionGresbModel;
     private LineChartModel sectorGresbModel;
+    private List<Double> portGresb;
+    private List<Double> portGreenPct;
+    private List<Double> fundGresb;
+    private List<Double> fundGreenPct;
+    private List<Double> regionGresb;
+    private List<Double> sectorGresb;
+    
+    private String fundIdentifier;
+
+    private List<Double> testData;
 
     public LineChartManagedBean() {
+        dataInitialization();
         createPortGresbModel();
         createPortGreenPctModel();
+        createFundGresbModel();
+        createFundGreenPctModel();
+        createRegionGresbModel();
+        createSectorGresbModel();
+
+    }
+
+    private void dataInitialization() {
+        List<Double> data = new ArrayList<Double>();
+        data.add((Double) 1.0);
+        data.add((Double) 2.0);
+        data.add((Double) 3.0);
+        data.add((Double) 4.0);
+        data.add((Double) 5.0);
+        data.add((Double) 6.0);
+        data.add((Double) 7.0);
+        data.add((Double) 8.0);
+        data.add((Double) 9.0);
+        data.add((Double) 10.0);
+        setTestData(data);
+        setFundIdentifier("Fund A");
     }
 
     private void createPortGresbModel() {
+
+//      setPortGresb(chartSessionBean.portGresb);
+        setPortGresb(getTestData());
+
         setPortGresbModel(new LineChartModel());
         ChartSeries scores = new ChartSeries();
         scores.setLabel("Portfolio");
-        scores.set("2020 Q2", 120);
-        scores.set("2020 Q3", 120);
-        scores.set("2020 Q4", 120);
-        scores.set("2021 Q1", 120);
-        scores.set("2021 Q2", 120);
-        scores.set("2021 Q3", 120);
-        scores.set("2021 Q4", 120);
-        scores.set("2022 Q1", 120);
-        scores.set("2022 Q2", 120);
-        scores.set("2022 Q3", 120);
+        scores.set("2020 Q2", getPortGresb().get(9));
+        scores.set("2020 Q3", getPortGresb().get(8));
+        scores.set("2020 Q4", getPortGresb().get(7));
+        scores.set("2021 Q1", getPortGresb().get(6));
+        scores.set("2021 Q2", getPortGresb().get(5));
+        scores.set("2021 Q3", getPortGresb().get(4));
+        scores.set("2021 Q4", getPortGresb().get(3));
+        scores.set("2022 Q1", getPortGresb().get(2));
+        scores.set("2022 Q2", getPortGresb().get(1));
+        scores.set("2022 Q3", getPortGresb().get(0));
         getPortGresbModel().addSeries(scores);
 
         getPortGresbModel().setTitle("Portfolio Quarterly GRESB");
@@ -55,24 +94,24 @@ public class LineChartManagedBean {
         getPortGresbModel().getAxes().put(AxisType.X, new CategoryAxis("Quarter"));
         Axis yAxis = getPortGresbModel().getAxis(AxisType.Y);
         yAxis.setLabel("GRESB Score");
-        yAxis.setMin(0);
-        yAxis.setMax(200);
+
     }
 
     private void createPortGreenPctModel() {
+        setPortGreenPct(getTestData());
         setPortGreenPctModel(new LineChartModel());
         ChartSeries scores = new ChartSeries();
         scores.setLabel("Portfolio");
-        scores.set("2020 Q2", 120);
-        scores.set("2020 Q3", 120);
-        scores.set("2020 Q4", 120);
-        scores.set("2021 Q1", 120);
-        scores.set("2021 Q2", 120);
-        scores.set("2021 Q3", 120);
-        scores.set("2021 Q4", 120);
-        scores.set("2022 Q1", 120);
-        scores.set("2022 Q2", 120);
-        scores.set("2022 Q3", 120);
+        scores.set("2020 Q2", getPortGreenPct().get(9));
+        scores.set("2020 Q3", getPortGreenPct().get(8));
+        scores.set("2020 Q4", getPortGreenPct().get(7));
+        scores.set("2021 Q1", getPortGreenPct().get(6));
+        scores.set("2021 Q2", getPortGreenPct().get(5));
+        scores.set("2021 Q3", getPortGreenPct().get(4));
+        scores.set("2021 Q4", getPortGreenPct().get(3));
+        scores.set("2022 Q1", getPortGreenPct().get(2));
+        scores.set("2022 Q2", getPortGreenPct().get(1));
+        scores.set("2022 Q3", getPortGreenPct().get(0));
         getPortGreenPctModel().addSeries(scores);
 
         getPortGreenPctModel().setTitle("Portfolio Green Building %");
@@ -81,8 +120,96 @@ public class LineChartManagedBean {
         getPortGreenPctModel().getAxes().put(AxisType.X, new CategoryAxis("Quarter"));
         Axis yAxis = getPortGreenPctModel().getAxis(AxisType.Y);
         yAxis.setLabel("Green Building %");
-        yAxis.setMin(0);
-        yAxis.setMax(200);
+
+    }
+
+    private void createFundGresbModel() {
+        setFundGresb(getTestData());
+        setFundGresbModel(new LineChartModel());
+        ChartSeries scores = new ChartSeries();
+        scores.setLabel(fundIdentifier);
+        scores.set("2020 Q2", getFundGresb().get(9));
+        scores.set("2020 Q3", getFundGresb().get(8));
+        scores.set("2020 Q4", getFundGresb().get(7));
+        scores.set("2021 Q1", getFundGresb().get(6));
+        scores.set("2021 Q2", getFundGresb().get(5));
+        scores.set("2021 Q3", getFundGresb().get(4));
+        scores.set("2021 Q4", getFundGresb().get(3));
+        scores.set("2022 Q1", getFundGresb().get(2));
+        scores.set("2022 Q2", getFundGresb().get(1));
+        scores.set("2022 Q3", getFundGresb().get(0));
+        getFundGresbModel().addSeries(scores);
+
+        getFundGresbModel().setTitle(fundIdentifier+" Quarterly GRESB");
+        getFundGresbModel().setLegendPosition("e");
+        getFundGresbModel().setShowPointLabels(true);
+        getFundGresbModel().getAxes().put(AxisType.X, new CategoryAxis("Quarter"));
+        Axis yAxis = getFundGresbModel().getAxis(AxisType.Y);
+        yAxis.setLabel("GRESB Score");
+    }
+
+    private void createFundGreenPctModel() {
+        setFundGreenPct(getTestData());
+        setFundGreenPctModel(new LineChartModel());
+        ChartSeries scores = new ChartSeries();
+        scores.setLabel(fundIdentifier);
+        scores.set("2020 Q2", getFundGreenPct().get(9));
+        scores.set("2020 Q3", getFundGreenPct().get(8));
+        scores.set("2020 Q4", getFundGreenPct().get(7));
+        scores.set("2021 Q1", getFundGreenPct().get(6));
+        scores.set("2021 Q2", getFundGreenPct().get(5));
+        scores.set("2021 Q3", getFundGreenPct().get(4));
+        scores.set("2021 Q4", getFundGreenPct().get(3));
+        scores.set("2022 Q1", getFundGreenPct().get(2));
+        scores.set("2022 Q2", getFundGreenPct().get(1));
+        scores.set("2022 Q3", getFundGreenPct().get(0));
+        getFundGreenPctModel().addSeries(scores);
+
+        getFundGreenPctModel().setTitle(fundIdentifier+" Green Building %");
+        getFundGreenPctModel().setLegendPosition("e");
+        getFundGreenPctModel().setShowPointLabels(true);
+        getFundGreenPctModel().getAxes().put(AxisType.X, new CategoryAxis("Quarter"));
+        Axis yAxis = getFundGreenPctModel().getAxis(AxisType.Y);
+        yAxis.setLabel("Green Building %");
+    }
+
+    private void createRegionGresbModel() {
+        setRegionGresb(getTestData());
+        setRegionGresbModel(new LineChartModel());
+        ChartSeries scores = new ChartSeries();
+        scores.setLabel("Regions");
+        scores.set("AFR", getRegionGresb().get(4));
+        scores.set("EUR", getRegionGresb().get(3));
+        scores.set("SA", getRegionGresb().get(2));
+        scores.set("NA", getRegionGresb().get(1));
+        scores.set("APAC", getRegionGresb().get(0));
+        getRegionGresbModel().addSeries(scores);
+
+        getRegionGresbModel().setTitle("Region Quarterly GRESB");
+        getRegionGresbModel().setLegendPosition("e");
+        getRegionGresbModel().setShowPointLabels(true);
+        getRegionGresbModel().getAxes().put(AxisType.X, new CategoryAxis("Region"));
+        Axis yAxis = getRegionGresbModel().getAxis(AxisType.Y);
+        yAxis.setLabel("GRESB Score");
+    }
+
+    private void createSectorGresbModel() {
+        setSectorGresb(getTestData());
+        setSectorGresbModel(new LineChartModel());
+        ChartSeries scores = new ChartSeries();
+        scores.setLabel("Sectors");
+        scores.set("Other", getSectorGresb().get(3));
+        scores.set("Industrial", getSectorGresb().get(2));
+        scores.set("Office", getSectorGresb().get(1));
+        scores.set("Residential", getSectorGresb().get(0));
+        getSectorGresbModel().addSeries(scores);
+
+        getSectorGresbModel().setTitle("Sector Quarterly GRESB");
+        getSectorGresbModel().setLegendPosition("e");
+        getSectorGresbModel().setShowPointLabels(true);
+        getSectorGresbModel().getAxes().put(AxisType.X, new CategoryAxis("Sector"));
+        Axis yAxis = getSectorGresbModel().getAxis(AxisType.Y);
+        yAxis.setLabel("GRESB Score");
     }
 
     public LineChartModel getPortGresbModel() {
@@ -175,6 +302,118 @@ public class LineChartManagedBean {
      */
     public void setSectorGresbModel(LineChartModel sectorGresbModel) {
         this.sectorGresbModel = sectorGresbModel;
+    }
+
+    /**
+     * @return the portGresb
+     */
+    public List<Double> getPortGresb() {
+        return portGresb;
+    }
+
+    /**
+     * @param portGresb the portGresb to set
+     */
+    public void setPortGresb(List<Double> portGresb) {
+        this.portGresb = portGresb;
+    }
+
+    /**
+     * @return the portGreenPct
+     */
+    public List<Double> getPortGreenPct() {
+        return portGreenPct;
+    }
+
+    /**
+     * @param portGreenPct the portGreenPct to set
+     */
+    public void setPortGreenPct(List<Double> portGreenPct) {
+        this.portGreenPct = portGreenPct;
+    }
+
+    /**
+     * @return the fundGresb
+     */
+    public List<Double> getFundGresb() {
+        return fundGresb;
+    }
+
+    /**
+     * @param fundGresb the fundGresb to set
+     */
+    public void setFundGresb(List<Double> fundGresb) {
+        this.fundGresb = fundGresb;
+    }
+
+    /**
+     * @return the fundGreenPct
+     */
+    public List<Double> getFundGreenPct() {
+        return fundGreenPct;
+    }
+
+    /**
+     * @param fundGreenPct the fundGreenPct to set
+     */
+    public void setFundGreenPct(List<Double> fundGreenPct) {
+        this.fundGreenPct = fundGreenPct;
+    }
+
+    /**
+     * @return the regionGresb
+     */
+    public List<Double> getRegionGresb() {
+        return regionGresb;
+    }
+
+    /**
+     * @param regionGresb the regionGresb to set
+     */
+    public void setRegionGresb(List<Double> regionGresb) {
+        this.regionGresb = regionGresb;
+    }
+
+    /**
+     * @return the sectorGresb
+     */
+    public List<Double> getSectorGresb() {
+        return sectorGresb;
+    }
+
+    /**
+     * @param sectorGresb the sectorGresb to set
+     */
+    public void setSectorGresb(List<Double> sectorGresb) {
+        this.sectorGresb = sectorGresb;
+    }
+
+    /**
+     * @return the testData
+     */
+    public List<Double> getTestData() {
+        return testData;
+    }
+
+    /**
+     * @param testData the testData to set
+     */
+    public void setTestData(List<Double> testData) {
+        this.testData = testData;
+    }
+
+    /**
+     * @return the fundIdentifier
+     */
+    public String getFundIdentifier() {
+        return fundIdentifier;
+    }
+
+    /**
+     * @param fundIdentifier the fundIdentifier to set
+     */
+    public void setFundIdentifier(String fundIdentifier) {
+        this.fundIdentifier = fundIdentifier;
     }
 
 }
