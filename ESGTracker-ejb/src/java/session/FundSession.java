@@ -94,7 +94,8 @@ public class FundSession implements FundSessionLocal {
     @Override
     public void updateFund(Fund f) throws NoResultException {
         Fund oldf = getFund(f.getId());
-
+        List<Asset> assets = oldf.getAssets();
+        
         oldf.setFyear(f.getFyear());
         oldf.setFquarter(f.getFquarter());
         oldf.setFundIdentifier(f.getFundIdentifier());
@@ -102,7 +103,14 @@ public class FundSession implements FundSessionLocal {
         oldf.setInUNRPI(f.isInUNRPI());
         oldf.setInTFCD(f.isInTFCD());
         oldf.setGRESBRating(f.getGRESBRating());
-        oldf.setAssets(f.getAssets());
+        
+        for(Asset a : assets) {
+            a.setFundId(f.getId());
+            a.setAyear(f.getFyear());
+            a.setAquarter(f.getFquarter());
+            a.setFundName(f.getName());
+        }
+        oldf.setAssets(assets);
     }
 
     @Override
