@@ -41,10 +41,13 @@
                 <h:outputLabel for="unrpi">In UNRPI?</h:outputLabel>
                 <p:selectBooleanCheckbox id="unrpi" value="#{fundManagedBean.unrpi}"/>
             </p:panelGrid>
+            <br/>
             <p:commandButton value="Submit"
                              actionListener="#{fundManagedBean.updateFund}"
                              action="viewFunds.xhtml?faces-redirect=true"
                              update=":form"/>
+            <br/><br/>
+            <p:button value="Cancel" title="cancel" outcome="viewFunds"/>
         </h:form>
     </ui:define>
 

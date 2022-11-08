@@ -19,7 +19,8 @@
             <f:event type="preRenderView"
                      listener="#{fundManagedBean.loadSelectedFund}"/>
         </f:metadata>
-        <h:form id="form">
+        <h:form id="form">            
+            <p:growl id="growl" showDetail="true" sticky="true" /> 
             <h3>Asset List of #{fundManagedBean.fundName}</h3>
             <p:dataTable var="asset"
                          value="#{fundManagedBean.assets}"
@@ -58,7 +59,7 @@
                 </p:column>
             </p:dataTable>
             <br/>
-            <p:button value="Add Asset" title="AddAsset" outcome="addAsset">
+            <p:button value="Add New Asset" title="AddAsset" outcome="addAsset">
                 <f:param name="fundId" value="#{fundManagedBean.fundId}" />
             </p:button>
             <br/>

@@ -41,10 +41,14 @@
                 <h:outputLabel for="green">Is Green?</h:outputLabel>
                 <p:selectBooleanCheckbox id="green" value="#{fundManagedBean.isGreen}"/>
             </p:panelGrid>
+            <br/>
             <p:commandButton value="Submit"
                              actionListener="#{fundManagedBean.updateAsset}"
-                             action="viewFunds.xhtml?faces-redirect=true"
                              update=":form"/>
+            <br/><br/>
+            <p:button value="Cancel" title="cancel" outcome="viewFundDetail">
+                <f:param name="fundId" value="#{fundManagedBean.assetFundId}" />
+            </p:button>
         </h:form>
     </ui:define>
 
