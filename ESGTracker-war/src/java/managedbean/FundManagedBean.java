@@ -7,6 +7,8 @@ package managedbean;
 
 import entity.Asset;
 import entity.Fund;
+import enumeration.RegionEnum;
+import enumeration.SectorEnum;
 import exception.NoResultException;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
@@ -20,6 +22,8 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import session.FundSessionLocal;
 
 /**
@@ -57,6 +61,8 @@ public class FundManagedBean implements Serializable {
     private Asset selectedAsset;
     private Long assetId;
     private String assetFundName;
+    private String sector;
+    private String region;
 
     public FundManagedBean() {
     }
@@ -149,6 +155,8 @@ public class FundManagedBean implements Serializable {
         a.setIsGreen(isGreen);
         a.setCountry(country);
         a.setFundName(fundName);
+        a.setSector(sector);
+        a.setRegion(region);
 
         try {
             fundSessionLocal.createAsset(a);
@@ -174,6 +182,8 @@ public class FundManagedBean implements Serializable {
             isGreen = this.selectedAsset.isIsGreen();
             country = this.selectedAsset.getCountry();
             assetFundName = this.selectedAsset.getFundName();
+            sector = this.selectedAsset.getSector();
+            region = this.selectedAsset.getRegion();
         } catch (Exception e) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to load asset"));
         }
@@ -189,6 +199,8 @@ public class FundManagedBean implements Serializable {
         selectedAsset.setFundName(assetFundName);
         selectedAsset.setIsGreen(isGreen);
         selectedAsset.setCountry(country);
+        selectedAsset.setRegion(region);
+        selectedAsset.setSector(sector);
 
         try {
             fundSessionLocal.updateAsset(selectedAsset);
@@ -394,6 +406,21 @@ public class FundManagedBean implements Serializable {
     public void setAssetFundName(String assetFundName) {
         this.assetFundName = assetFundName;
     }
-    
-    
+
+    public String getSector() {
+        return sector;
+    }
+
+    public void setSector(String sector) {
+        this.sector = sector;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
 }
