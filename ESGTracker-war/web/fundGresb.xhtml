@@ -3,14 +3,24 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
                 template="./layout/default.xhtml"
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="title">
         title
     </ui:define>
 
     <ui:define name="content">   
-        <p:chart type="line" model="#{lineChartManagedBean.fundGresbModel}" style="width:1200px;max-width: calc(100% - 20px);"/>
+        <h:form id="form">
+            <p:chart type="line" model="#{lineChartManagedBean.fundGresbModel}" style="width:1200px;max-width: calc(100% - 20px);"/>
+
+            <p:inputText placeholder="Enter keywords" 
+                         value="#{lineChartManagedBean.fundIdentifier}">
+            </p:inputText>
+            <p:commandButton value="Submit" 
+                             action="#{lineChartManagedBean.createFundGresbModel()}"
+                             update=":form"/>
+        </h:form>
     </ui:define>
 
 </ui:composition>

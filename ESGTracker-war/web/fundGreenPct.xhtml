@@ -12,7 +12,16 @@
     </ui:define>
 
     <ui:define name="content">
-        <p:chart type="line" model="#{lineChartManagedBean.fundGreenPctModel}" style="width:1200px;max-width: calc(100% - 20px);" />
+        <h:form id="form">
+            <p:chart type="line" model="#{lineChartManagedBean.fundGreenPctModel}" style="width:1200px;max-width: calc(100% - 20px);" />
+
+            <p:inputText placeholder="Enter keywords" 
+                         value="#{lineChartManagedBean.fundIdentifier}">
+            </p:inputText>
+            <p:commandButton value="Submit" 
+                             action="#{lineChartManagedBean.createFundGreenPctModel()}"
+                             update=":form"/>
+        </h:form>
     </ui:define>
 
 </ui:composition>
