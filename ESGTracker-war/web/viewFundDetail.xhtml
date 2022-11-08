@@ -12,6 +12,13 @@
     </ui:define>
 
     <ui:define name="content">
+        <f:metadata>
+            <!-- to get the cId and bind it to a cId in managed bean -->
+            <f:viewParam name="fundId" value="#{fundManagedBean.fundId}" />
+            <!-- load the selected customer -->
+            <f:event type="preRenderView"
+                     listener="#{fundManagedBean.loadSelectedFund}"/>
+        </f:metadata>
         <h3>Asset List</h3>
         <p:dataTable var="asset"
                      value="#{fundManagedBean.assets}"
@@ -39,6 +46,10 @@
                 <h:outputText value="#{asset.country}"/>
             </p:column>
         </p:dataTable>
+        <br/>
+        <p:button value="Add Asset" title="AddAsset" outcome="addAsset">
+            <f:param name="fundId" value="#{fundManagedBean.fundId}" />
+        </p:button>
         <br/>
         <a href="viewFunds.xhtml">Back</a>
     </ui:define>
