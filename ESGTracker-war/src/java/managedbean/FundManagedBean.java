@@ -51,6 +51,12 @@ public class FundManagedBean implements Serializable {
     private double avalue;
     private boolean isGreen;
     private String country;
+    private int ayear;
+    private int aquarter;
+    private Long assetFundId;
+    private Asset selectedAsset;
+    private Long assetId;
+    private String assetFundName;
 
     public FundManagedBean() {
     }
@@ -114,23 +120,6 @@ public class FundManagedBean implements Serializable {
         context.addMessage(null, new FacesMessage("Success", "Successfully updated fund entry"));
     }
 
-    public void deleteCustomer() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        Map<String, String> params = context.getExternalContext()
-                .getRequestParameterMap();
-        String fIdStr = params.get("fId");
-        Long fId = Long.parseLong(fIdStr);
-        try {
-            fundSessionLocal.deleteFund(fId);
-        } catch (Exception e) {
-//show with an error icon
-            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to delete fund entry"));
-            return;
-        }
-        context.addMessage(null, new FacesMessage("Success", "Successfully deleted fund entry"));
-        init();
-    }
-
     public void deleteFund() {
         FacesContext context = FacesContext.getCurrentInstance();
         Map<String, String> params = context.getExternalContext()
@@ -163,7 +152,68 @@ public class FundManagedBean implements Serializable {
             fundSessionLocal.createAsset(a);
         } catch (Exception e) {
             context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to create asset"));
+            return;
         }
+        context.addMessage(null, new FacesMessage("Success", "Successfully added asset"));
+        init();
+    }
+    
+    public void loadSelectedAsset() {
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        try {
+            this.selectedAsset
+                    = fundSessionLocal.getAsset(assetId);
+            assetName = this.selectedAsset.getName();            
+            avalue = this.selectedAsset.getAvalue();
+            ayear = this.selectedAsset.getAyear();
+            aquarter = this.selectedAsset.getAquarter();
+            assetFundId = this.selectedAsset.getFundId();
+            isGreen = this.selectedAsset.isIsGreen();
+            country = this.selectedAsset.getCountry();
+            assetFundName = fundSessionLocal.getFund(this.selectedAsset.getFundId()).getName();
+        } catch (Exception e) {
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to load asset"));
+        }
+    }
+
+    public void updateAsset(ActionEvent evt) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        selectedAsset.setName(assetName);
+        selectedAsset.setAvalue(avalue);
+        selectedAsset.setAyear(ayear);
+        selectedAsset.setAquarter(aquarter);
+        selectedAsset.setFundId(assetFundId);
+        selectedAsset.setIsGreen(isGreen);
+        selectedAsset.setCountry(country);
+
+        try {
+            fundSessionLocal.updateAsset(selectedAsset);
+        } catch (Exception e) {
+//show with an error icon
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to update asset"));
+            return;
+        }
+//need to make sure reinitialize the customers collection
+        init();
+        context.addMessage(null, new FacesMessage("Success", "Successfully updated asset entry"));
+    }
+
+    public void deleteAsset() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map<String, String> params = context.getExternalContext()
+                .getRequestParameterMap();
+        String aIdStr = params.get("assetId");
+        Long aId = Long.parseLong(aIdStr);
+        try {
+            fundSessionLocal.deleteAsset(aId);
+        } catch (Exception e) {
+//show with an error icon
+            context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Unable to delete asset"));
+            return;
+        }
+        context.addMessage(null, new FacesMessage("Success", "Successfully deleted asset entry"));
+        init();
     }
 
     public FundSessionLocal getFundSessionLocal() {
@@ -294,5 +344,53 @@ public class FundManagedBean implements Serializable {
         this.country = country;
     }
 
+    public Asset getSelectedAsset() {
+        return selectedAsset;
+    }
+
+    public void setSelectedAsset(Asset selectedAsset) {
+        this.selectedAsset = selectedAsset;
+    }
+
+    public Long getAssetId() {
+        return assetId;
+    }
+
+    public void setAssetId(Long assetId) {
+        this.assetId = assetId;
+    }
+
+    public int getAyear() {
+        return ayear;
+    }
+
+    public void setAyear(int ayear) {
+        this.ayear = ayear;
+    }
+
+    public int getAquarter() {
+        return aquarter;
+    }
+
+    public void setAquarter(int aquarter) {
+        this.aquarter = aquarter;
+    }
+
+    public Long getAssetFundId() {
+        return assetFundId;
+    }
+
+    public void setAssetFundId(Long assetFundId) {
+        this.assetFundId = assetFundId;
+    }
+
+    public String getAssetFundName() {
+        return assetFundName;
+    }
+
+    public void setAssetFundName(String assetFundName) {
+        this.assetFundName = assetFundName;
+    }
+    
     
 }
