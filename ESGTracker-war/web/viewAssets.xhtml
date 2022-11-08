@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./layout/default.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="title">
+        View All Assets
+    </ui:define>
+
+    <ui:define name="content">
+        <h:form id="form">
+            <p:growl id="growl" showDetail="true" sticky="true" />        
+            <p:dataTable var="asset"
+                         value="#{fundManagedBean.assets}"
+                         resizableColumns="true">
+                <p:column headerText="Id">
+                    <h:outputText value="#{asset.id}"/>
+                </p:column>
+                <p:column headerText="Name">
+                    <h:outputText value="#{asset.name}"/>
+                </p:column>
+                <p:column headerText="Belongs to">
+                    <h:outputText value="#{asset.fundName}"/>
+                </p:column>
+                <p:column headerText="Year">
+                    <h:outputText value="#{asset.ayear}"/>
+                </p:column>
+                <p:column headerText="Quarter">
+                    <h:outputText value="#{asset.aquarter}"/>
+                </p:column>
+                <p:column headerText="Value">
+                    <h:outputText value="#{asset.avalue}"/>
+                </p:column>
+                <p:column headerText="Is Green?">
+                    <h:outputText value="Yes" rendered="#{asset.isGreen}"/>
+                    <h:outputText value="No" rendered="#{!asset.isGreen}"/>
+                </p:column>
+                <p:column headerText="Country of Origin">
+                    <h:outputText value="#{asset.country}"/>
+                </p:column>
+                <p:column>
+                    <p:button icon="fa fa-fw fa-edit" title="Update" outcome="editAsset">
+                        <f:param name="assetId" value="#{asset.id}" />
+                    </p:button>
+                    <p:commandButton icon="fa fa-fw fa-remove"
+                                     action="#{fundManagedBean.deleteAsset}" update=":form"
+                                     title="Delete">
+                        <f:param name="assetId" value="#{asset.id}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>
