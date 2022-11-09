@@ -4,6 +4,7 @@
  */
 package session;
 
+import entity.Asset;
 import entity.Fund;
 import exception.NoResultException;
 import javax.annotation.PostConstruct;
@@ -36,35 +37,50 @@ public class DataInitSession {
     private void initializeData() {
         //call addFundX addAssetX here
         addFund();
+        addFund1();
     }
 
     public void addFund() {
         Fund f = new Fund();
-        f.setName("1");
-        f.setFundIdentifier("1");
-        f.setFyear(1);
+        f.setName("Invespa Real Estate Asia Fund");
+        f.setFundIdentifier("AS1");
+        f.setFyear(2022);
         f.setFquarter(1);
-        f.setGRESBRating(1);
+        f.setGRESBRating(72);
         f.setInTFCD(true);
         f.setInUNRPI(true);
 
         fundSessionLocal.createFund(f);
     }
 
-//        public void addAsset() {
-//        Asset a = new Asset();
-//        a.setFundId(fundId);
-//        a.setAyear(fyear);
-//        a.setAquarter(fquarter);
-//        a.setName(assetName);
-//        a.setAvalue(avalue);
-//        a.setIsGreen(isGreen);
-//        a.setCountry(country);
-//        a.setFundName(fundName);
-//        a.setSector(sector);
-//        a.setRegion(region);
-//
-//        fundSessionLocal.createAsset(a);
-//
-//    }
+    public void addFund1() {
+        Fund f = new Fund();
+        f.setName("Megan Stanley Prime Fund");
+        f.setFundIdentifier("US1");
+        f.setFyear(2022);
+        f.setFquarter(1);
+        f.setGRESBRating(76);
+        f.setInTFCD(true);
+        f.setInUNRPI(false);
+
+        fundSessionLocal.createFund(f);
+    }
+
+    public void addAsset() throws NoResultException {
+        Fund f = fundSessionLocal.getFund(1L);
+        Asset a = new Asset();
+        a.setFundId(f.getId());
+        a.setAyear(f.getFyear());
+        a.setAquarter(f.getFquarter());
+        a.setName("K-Office");
+        a.setAvalue(20000000);
+        a.setIsGreen(true);
+        a.setCountry("");
+        a.setFundName(f.getName());
+        a.setSector("Office");
+        a.setRegion("Asia_Pacific");
+
+        fundSessionLocal.createAsset(a);
+
+    }
 }

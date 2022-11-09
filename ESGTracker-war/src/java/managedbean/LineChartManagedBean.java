@@ -59,8 +59,8 @@ public class LineChartManagedBean implements Serializable {
     public void init() {
         dataInitialization();
         setPortGresb(fundSessionLocal.getPortGresbList());
-//        createPortGresbModel();
-//        createPortGreenPctModel();
+        createPortGresbModel();
+        createPortGreenPctModel();
         createFundGresbModel();
         createFundGreenPctModel();
         createRegionGresbModel();
@@ -86,8 +86,8 @@ public class LineChartManagedBean implements Serializable {
 
     public void createPortGresbModel() {
 
-//      setPortGresb(chartSessionBean.portGresb);
-        setPortGresb(fundSessionLocal.getPortGresbList());
+      setPortGresb(getTestData());
+//        setPortGresb(fundSessionLocal.getPortGresbList());
 
         setPortGresbModel(new LineChartModel());
         ChartSeries scores = new ChartSeries();
@@ -114,7 +114,7 @@ public class LineChartManagedBean implements Serializable {
     }
 
     public void createPortGreenPctModel() {
-        setPortGreenPct(fundSessionLocal.getPortGreenPctList());
+        setPortGreenPct(getTestData());
         setPortGreenPctModel(new LineChartModel());
         ChartSeries scores = new ChartSeries();
         scores.setLabel("Portfolio");
