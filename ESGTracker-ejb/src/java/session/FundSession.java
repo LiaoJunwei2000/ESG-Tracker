@@ -275,11 +275,6 @@ public class FundSession implements FundSessionLocal {
         return q.getResultList();
     }
     
-    
-
-    
-    
-    
     @Override
     public List<Double> getPortGresbList() {
         
@@ -333,30 +328,37 @@ public class FundSession implements FundSessionLocal {
     }
     
     @Override
-    public List<Double> getFundGresbList(){
+    public List<Double> getFundGresbList(String fundId){
         
-        Query q;
+        List<Fund> quarterList = getFundFromFundIdentifier(fundId);
         List<Double> resultList = new ArrayList<>();
         
+        for (int i = 0; i < 9; i++) {
+            resultList.add((double)quarterList.get(i).getGRESBRating());
+        }
         
-        return getTestList();
+        return resultList;
     }
     
     @Override
-    public List<Double> getFundGreenPct(){
+    public List<Double> getFundGreenPct(String fundId){
         
-        Query q;
+        List<Fund> quarterList = getFundFromFundIdentifier(fundId);
         List<Double> resultList = new ArrayList<>();
         
+        for (int i = 0; i < 9; i++) {
+            double tempValue = (double)quarterList.get(i).getFvalue();
+            double tempGreenValue = (double)quarterList.get(i).getGreenValue();
+            
+            resultList.add(100 * (tempGreenValue / tempValue));
+        }
         
-        return getTestList();
+        return resultList;
     }
     
     @Override
     public List<Double> getRegionGresbList(){
         
-        Query q;
-        List<Double> resultList = new ArrayList<>();
         
         
         return getTestList();
@@ -364,10 +366,7 @@ public class FundSession implements FundSessionLocal {
     
     @Override
     public List<Double> getSectorGresbList(){
-        
-        Query q;
-        List<Double> resultList = new ArrayList<>();
-        
+
         
         
         return getTestList();
@@ -375,13 +374,21 @@ public class FundSession implements FundSessionLocal {
     
     
     
-    /* helper methods below. Currently getting a set of quarters based on 2022Q3 
-    
-    
+    /* helper methods below. 
+    Currently getting a set of quarters based on 2022 Q3 
     
     
     
     */
+    
+    //gets all quarters of fund ordered by latest quarter first
+    private List<Fund> getFundFromFundIdentifier(String fundIdentifier) {
+        Query q;
+        
+        q = em.createQuery("SELECT f FROM Fund f WHERE f.fundIdentifier = :inFundIdentifier ORDER BY f.fYear, f.fQuarter DESC");
+        q.setParameter("inFundId", fundIdentifier);
+        return (List<Fund>)q.getResultList();
+    }
     
     private List<Fund> getAllFunds(String fYear, String fQuarter){
         

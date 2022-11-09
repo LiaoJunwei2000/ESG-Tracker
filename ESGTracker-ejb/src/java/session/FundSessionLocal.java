@@ -53,9 +53,9 @@ public interface FundSessionLocal {
     
     public List<Double> getPortGreenPctList();
     
-    public List<Double> getFundGresbList();
+    public List<Double> getFundGresbList(String fundId);
     
-    public List<Double> getFundGreenPct();
+    public List<Double> getFundGreenPct(String fundId);
     
     public List<Double> getRegionGresbList();
     
