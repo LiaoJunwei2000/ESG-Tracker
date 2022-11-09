@@ -10,6 +10,12 @@
     </ui:define>
 
     <ui:define name="content">
+        <style type="text/css">
+            .jqplot-base-canvas{
+                background-color: #fbfbf3
+            }
+            ;
+        </style>
         <p:chart type="line" model="#{lineChartManagedBean.portGresbModel}" style="width:1200px;max-width: calc(100% - 20px);"/>
     </ui:define>
 
