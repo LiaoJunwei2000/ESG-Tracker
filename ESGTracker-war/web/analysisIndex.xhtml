@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./layout/default.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <ui:define name="title">
+        Analysis - ESG Tracker
+    </ui:define>
+
+    <ui:define name="content">
+        <style type="text/css">
+            .ui-panel, div.ui-state-hover {
+                margin: 10px;
+                width:200px;            
+            }
+            .panelGridCenter {
+                margin: 0 auto;
+            }
+            .images {
+                margin: 0 auto;
+            }
+        </style>
+        <h1 align="center">Welcome to ESG Analytics!</h1><br/>
+        <p:panelGrid columns="1" styleClass="images">
+            <img src="resources/img/a1.png" alt="analysis1" width="200" height="200"/>&nbsp;&nbsp;&nbsp;
+            <img src="resources/img/a4.png" alt="esglogo" width="200" height="200"/>&nbsp;&nbsp;&nbsp;
+            <img src="resources/img/a2.png" alt="analysis2" width="200" height="200"/>
+        </p:panelGrid> <br/><br/>
+        <p:panelGrid columns="3" styleClass="panelGridCenter">
+            <p:panel id="portgresb" header="Portfolio Quarterly GRESB" >
+                <a href="portGresb.xhtml">View Graph</a>
+            </p:panel>
+            <p:panel id="green" header="Portfolio Green Building %">
+                <a href="viewAssets.xhtml">View Graph</a>
+            </p:panel>
+            <p:panel id="fundqgresb" header="Fund Quarterly GRESB">
+                <a href="fundGresb.xhtml">View Graph</a>
+            </p:panel>
+            <p:panel id="fundqpct" header="Fund Quarterly Green Building %">
+                <a href="fundGreenPct.xhtml">View Graph</a>
+            </p:panel>
+            <p:panel id="regiongresb" header="Region Quarterly GRESB">
+                <a href="regionGresb.xhtml">View Graph</a>
+            </p:panel>
+            <p:panel id="sectorgresb" header="Sector Quarterly GRESB">
+                <a href="sectorGresb.xhtml">View Graph</a>
+            </p:panel>
+        </p:panelGrid><br/>
+
+
+
+    </ui:define>
+
+</ui:composition>
