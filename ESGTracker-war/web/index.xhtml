@@ -2,14 +2,52 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-                template="./layout/default.xhtml">
+                template="./layout/default.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html">
 
     <ui:define name="title">
         ESG Tracker
     </ui:define>
 
     <ui:define name="content">
-        ESG Tracker
+        <style type="text/css">
+            .ui-panel, div.ui-state-hover {
+                margin: 10px;
+                width:200px;            
+            }
+            .panelGridCenter {
+                margin: 0 auto;               
+            }
+            .panelImage {
+                margin: 0 auto;                
+            }
+        </style>        
+        <h1 align="center">Welcome to ESG Tracker!</h1><br/>
+        <h4 align="center"><b>ESG</b> (Environmental, social, and governance) 
+            investing is an investment philosophy to inform holistic and sound 
+            decision-making of investors for the purposes of both, nourishing a 
+            stable economy with acceptable rates of return while at the same 
+            time addressing stakeholders' non-financial concerns to preserve an 
+            inhabitable planet.</h4> <br/>
+        <p:panelGrid columns="1" styleClass="panelImage">            
+            <img src="resources/img/ESGwords.png" alt="words"/><br/><br/>            
+        </p:panelGrid><br/>
+        <h2 align="center">Click on the links below to start your journey! </h2><br/>
+        <p:panelGrid columns="3" styleClass="panelGridCenter">
+            <p:panel id="funds" header="Funds" footer="A list of all funds saved in our database">
+                <a href="viewFunds.xhtml">View Funds</a>
+            </p:panel>
+
+            <p:panel id="assets" header="Assets" footer="A list of all existing Assets created in our database">
+                <a href="viewAssets.xhtml">View Assets</a>
+            </p:panel>
+
+            <p:panel id="analysis" header="Analysis" footer="An overview of all the analytic graphs we provide">
+                <a href="analysisIndex.xhtml">Analysis</a>
+            </p:panel>            
+        </p:panelGrid>
+
     </ui:define>
 
 </ui:composition>
