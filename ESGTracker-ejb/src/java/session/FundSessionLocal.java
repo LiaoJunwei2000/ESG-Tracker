@@ -49,4 +49,16 @@ public interface FundSessionLocal {
     
     public List<Asset> searchAssets(String name);
     
+    public List<Double> getPortGresbList();
+    
+    public List<Double> getPortGreenPctList();
+    
+    public List<Double> getFundGresbList();
+    
+    public List<Double> getFundGreenPct();
+    
+    public List<Double> getRegionGresbList();
+    
+    public List<Double> getSectorGresbList();
+            
 }

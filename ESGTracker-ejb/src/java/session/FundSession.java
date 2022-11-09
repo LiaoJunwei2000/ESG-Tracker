@@ -9,8 +9,7 @@ import entity.Asset;
 import entity.Fund;
 import entity.FundUser;
 import exception.NoResultException;
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -267,5 +266,171 @@ public class FundSession implements FundSessionLocal {
         
         return q.getResultList();
     }
+    
+    
 
+    
+    
+    
+    @Override
+    public List<Double> getPortGresbList() {
+        
+        List<String> yearList = getYearList();
+        List<String> quarterList = getQuarterList();
+        
+        List<Double> resultList = new ArrayList<>();
+        
+        for (int i = 0; i < 9; i++) {
+            double quarterValue = 0;
+            double weightedScore = 0;
+            
+            List<Fund> fundList = getAllFunds(yearList.get(i), quarterList.get(i));
+            
+            for (Fund f : fundList) {
+                double tempRating = f.getGRESBRating();
+                double tempValue = f.getFvalue();
+                quarterValue += tempValue;
+                weightedScore += tempRating * tempValue;
+            }
+            
+            resultList.add(weightedScore / quarterValue);
+        }
+        return resultList;
+    }
+    
+    @Override
+    public List<Double> getPortGreenPctList() {
+        
+        List<String> yearList = getYearList();
+        List<String> quarterList = getQuarterList();
+        
+        List<Double> resultList = new ArrayList<>();
+        
+        for (int i = 0; i < 9; i++) {
+            double quarterValue = 0;
+            double greenValue = 0;
+            
+            List<Fund> fundList = getAllFunds(yearList.get(i), quarterList.get(i));
+            
+            for (Fund f : fundList) {
+                double tempGreenValue = f.getGreenValue();
+                double tempValue = f.getFvalue();
+                quarterValue += tempValue;
+                greenValue += tempGreenValue;
+            }
+            
+            resultList.add(greenValue / quarterValue);
+        }
+        return resultList;
+    }
+    
+    @Override
+    public List<Double> getFundGresbList(){
+        
+        Query q;
+        List<Double> resultList = new ArrayList<>();
+        
+        
+        return getTestList();
+    }
+    
+    @Override
+    public List<Double> getFundGreenPct(){
+        
+        Query q;
+        List<Double> resultList = new ArrayList<>();
+        
+        
+        return getTestList();
+    }
+    
+    @Override
+    public List<Double> getRegionGresbList(){
+        
+        Query q;
+        List<Double> resultList = new ArrayList<>();
+        
+        
+        return getTestList();
+    }
+    
+    @Override
+    public List<Double> getSectorGresbList(){
+        
+        Query q;
+        List<Double> resultList = new ArrayList<>();
+        
+        
+        
+        return getTestList();
+    }
+    
+    
+    
+    /* helper methods below. Currently getting a set of quarters based on 2022Q3 
+    
+    
+    
+    
+    
+    */
+    
+    private List<Fund> getAllFunds(String fYear, String fQuarter){
+        
+        Query q;
+        
+        q = em.createQuery("SELECT f FROM Fund f WHERE f.fyear = :inFYear AND f.fquarter = :inFQuarter ");
+        q.setParameter("inFYear", fYear);
+        q.setParameter("inFQuarter", fQuarter);
+        
+        return q.getResultList();
+    }
+    
+    private List<String> getYearList() {
+        ArrayList<String> yearList = new ArrayList<>();
+        yearList.add("2022");
+        yearList.add("2022");
+        yearList.add("2022");
+        yearList.add("2021");
+        yearList.add("2021");
+        yearList.add("2021");
+        yearList.add("2021");
+        yearList.add("2020");
+        yearList.add("2020");
+        yearList.add("2020");
+        
+        return yearList;
+    }
+    
+    private List<String> getQuarterList() {
+        ArrayList<String> quarterList = new ArrayList<>();
+        quarterList.add("Q3");
+        quarterList.add("Q2");
+        quarterList.add("Q1");
+        quarterList.add("Q4");
+        quarterList.add("Q3");
+        quarterList.add("Q2");
+        quarterList.add("Q1");
+        quarterList.add("Q4");
+        quarterList.add("Q3");
+        quarterList.add("Q2");
+        
+        return quarterList;
+    }
+    
+    //returns a default list of size 10 for frontend testing
+    private List<Double> getTestList() {
+        ArrayList<Double> testList = new ArrayList<>();
+        testList.add((double) 55);
+        testList.add((double) 58);
+        testList.add((double) 63);
+        testList.add((double) 65);
+        testList.add((double) 72);
+        testList.add((double) 77);
+        testList.add((double) 81);
+        testList.add((double) 84);
+        testList.add((double) 83);
+        testList.add((double) 86);
+        return testList;
+    }
 }
