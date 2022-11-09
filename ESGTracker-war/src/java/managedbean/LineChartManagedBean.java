@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.bean.SessionScoped;
@@ -19,6 +20,7 @@ import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.CategoryAxis;
 import org.primefaces.model.chart.ChartSeries;
 import org.primefaces.model.chart.LineChartModel;
+import session.FundSessionLocal;
 
 /**
  *
@@ -26,8 +28,11 @@ import org.primefaces.model.chart.LineChartModel;
  */
 @Named(value = "lineChartManagedBean")
 @ViewScoped
-public class LineChartManagedBean implements Serializable{
+public class LineChartManagedBean implements Serializable {
 
+    @EJB
+    private FundSessionLocal fundSessionLocal;
+    
     private LineChartModel model;
     private LineChartModel portGresbModel;
     private LineChartModel portGreenPctModel;
@@ -53,8 +58,9 @@ public class LineChartManagedBean implements Serializable{
     @PostConstruct
     public void init() {
         dataInitialization();
-        createPortGresbModel();
-        createPortGreenPctModel();
+        setPortGresb(fundSessionLocal.getPortGresbList());
+//        createPortGresbModel();
+//        createPortGreenPctModel();
         createFundGresbModel();
         createFundGreenPctModel();
         createRegionGresbModel();
@@ -81,7 +87,7 @@ public class LineChartManagedBean implements Serializable{
     public void createPortGresbModel() {
 
 //      setPortGresb(chartSessionBean.portGresb);
-        setPortGresb(getTestData());
+        setPortGresb(fundSessionLocal.getPortGresbList());
 
         setPortGresbModel(new LineChartModel());
         ChartSeries scores = new ChartSeries();
@@ -108,7 +114,7 @@ public class LineChartManagedBean implements Serializable{
     }
 
     public void createPortGreenPctModel() {
-        setPortGreenPct(getTestData());
+        setPortGreenPct(fundSessionLocal.getPortGreenPctList());
         setPortGreenPctModel(new LineChartModel());
         ChartSeries scores = new ChartSeries();
         scores.setLabel("Portfolio");
@@ -182,8 +188,6 @@ public class LineChartManagedBean implements Serializable{
         Axis yAxis = getFundGreenPctModel().getAxis(AxisType.Y);
         yAxis.setLabel("Green Building %");
     }
-    
-    
 
     public void createRegionGresbModel() {
         setRegionGresb(getTestData());
