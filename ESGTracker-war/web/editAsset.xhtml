@@ -36,8 +36,12 @@
                 <p:inputText id="aname" value="#{fundManagedBean.assetName}"/>
                 <h:outputLabel for="avalue">Asset Value: </h:outputLabel>
                 <p:inputNumber id="avalue" value="#{fundManagedBean.avalue}"/>
-                <h:outputLabel for="country">Country of Orgin: </h:outputLabel>
+                <h:outputLabel for="country">Country of Origin: </h:outputLabel>
                 <p:inputText id="country" value="#{fundManagedBean.country}"/>
+                <h:outputLabel for="region">Region: </h:outputLabel>
+                <p:inputText id="region" value="#{fundManagedBean.region}"/>
+                <h:outputLabel for="sector">Sector: </h:outputLabel>
+                <p:inputText id="sector" value="#{fundManagedBean.sector}"/>
                 <h:outputLabel for="green">Is Green?</h:outputLabel>
                 <p:selectBooleanCheckbox id="green" value="#{fundManagedBean.isGreen}"/>
             </p:panelGrid>
@@ -46,9 +50,10 @@
                              actionListener="#{fundManagedBean.updateAsset}"
                              update=":form"/>
             <br/><br/>
-            <p:button value="Cancel" title="cancel" outcome="viewFundDetail">
+            <p:button value="Back to #{fundManagedBean.assetFundName}'s Assets" title="cancel" outcome="viewFundDetail">
                 <f:param name="fundId" value="#{fundManagedBean.assetFundId}" />
             </p:button>
+            <p:button value="View All Assets" title="cancel" outcome="viewAssets"/>
         </h:form>
     </ui:define>
 

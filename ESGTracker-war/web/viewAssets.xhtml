@@ -16,31 +16,72 @@
             <p:growl id="growl" showDetail="true" sticky="true" />        
             <p:dataTable var="asset"
                          value="#{fundManagedBean.assets}"
-                         resizableColumns="true">
-                <p:column headerText="Id">
+                         widgetVar="assetsTable"
+                         resizableColumns="true"
+                         emptyMessage="No assets found" 
+                         filteredValue="#{filterManagedBean.filteredAssets}">
+
+                <f:facet name="header">
+                    <h3 style="float: left">Asset List</h3><br/><br/>
+                    <p:outputPanel style="float: right">
+                        <h:outputText value="Search all fields:  " />
+                        <p:inputText id="globalFilter" onkeyup="PF('assetsTable').filter()" style="width:150px" placeholder="Enter keyword"/>
+                    </p:outputPanel><br/><br/>
+                </f:facet>
+
+                <p:column headerText="Id" sortBy="#{asset.id}">
                     <h:outputText value="#{asset.id}"/>
                 </p:column>
-                <p:column headerText="Name">
+                <p:column headerText="Name" sortBy="#{asset.name}" filterBy="#{asset.name}" filterMatchMode="contains">
                     <h:outputText value="#{asset.name}"/>
                 </p:column>
-                <p:column headerText="Belongs to">
+                <p:column headerText="Belongs to" sortBy="#{asset.fundName}" filterBy="#{asset.fundName}" filterMatchMode="contains">
                     <h:outputText value="#{asset.fundName}"/>
                 </p:column>
-                <p:column headerText="Year">
+                <p:column headerText="Year" sortBy="#{asset.ayear}" filterBy="#{asset.ayear}" filterMatchMode="equals">
+                    <f:facet name="filter">
+                        <p:spinner onchange="PF('assetsTable').filter()" styleClass="year-spinner custom-filter">
+                            <f:converter converterId="javax.faces.Integer" />
+                        </p:spinner>
+                    </f:facet>
                     <h:outputText value="#{asset.ayear}"/>
                 </p:column>
-                <p:column headerText="Quarter">
+                <p:column headerText="Quarter" sortBy="#{asset.aquarter}" filterBy="#{asset.aquarter}" filterMatchMode="equals">
+                    <f:facet name="filter">
+                        <p:spinner onchange="PF('assetsTable').filter()" styleClass="year-spinner custom-filter">
+                            <f:converter converterId="javax.faces.Integer" />
+                        </p:spinner>
+                    </f:facet>
                     <h:outputText value="#{asset.aquarter}"/>
                 </p:column>
-                <p:column headerText="Value">
+                <p:column headerText="Value" sortBy="#{asset.avalue}" filterBy="#{asset.avalue}" filterMatchMode="equals">
+                    <f:facet name="filter">
+                        <p:spinner onchange="PF('assetsTable').filter()" styleClass="year-spinner custom-filter">
+                            <f:converter converterId="javax.faces.Integer" />
+                        </p:spinner>
+                    </f:facet>
                     <h:outputText value="#{asset.avalue}"/>
                 </p:column>
-                <p:column headerText="Is Green?">
+                <p:column headerText="Country of Origin" sortBy="#{asset.country}" filterBy="#{asset.country}" filterMatchMode="contains">
+                    <h:outputText value="#{asset.country}"/>
+                </p:column>
+                <p:column headerText="Region" sortBy="#{asset.region}" filterBy="#{asset.region}" filterMatchMode="contains">
+                    <h:outputText value="#{asset.region}"/>
+                </p:column>
+                <p:column headerText="Sector" sortBy="#{asset.sector}" filterBy="#{asset.sector}" filterMatchMode="contains">
+                    <h:outputText value="#{asset.sector}"/>
+                </p:column>
+                <p:column headerText="Is Green?" sortBy="#{asset.isGreen}" filterBy="#{asset.isGreen}" filterMatchMode="equals">
+                    <f:facet name="filter">
+                        <p:selectOneMenu onchange="PF('assetsTable').filter()" styleClass="custom-filter">
+                            <f:converter converterId="javax.faces.Boolean" />
+                            <f:selectItem itemLabel="All" itemValue="" />
+                            <f:selectItem itemLabel="Yes" itemValue="true" />
+                            <f:selectItem itemLabel="No" itemValue="false" />
+                        </p:selectOneMenu>
+                    </f:facet>
                     <h:outputText value="Yes" rendered="#{asset.isGreen}"/>
                     <h:outputText value="No" rendered="#{!asset.isGreen}"/>
-                </p:column>
-                <p:column headerText="Country of Origin">
-                    <h:outputText value="#{asset.country}"/>
                 </p:column>
                 <p:column>
                     <p:button icon="fa fa-fw fa-edit" title="Update" outcome="editAsset">
