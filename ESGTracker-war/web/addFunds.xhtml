@@ -22,11 +22,11 @@
                 <h:outputLabel for="name">Name: </h:outputLabel>
                 <p:inputText id="name" value="#{fundManagedBean.fundName}" />    
                 <h:outputLabel for="fqyear">Year: </h:outputLabel>
-                <p:inputNumber id="fqyear" value="#{fundManagedBean.fyear}"/>
+                <p:inputNumber id="fqyear" value="#{fundManagedBean.fyear}" placeholder="YYYY"/>
                 <h:outputLabel for="fqquarter">Quarter: </h:outputLabel>
-                <p:inputNumber id="fqquarter" value="#{fundManagedBean.fquarter}"/>
+                <p:inputNumber id="fqquarter" value="#{fundManagedBean.fquarter}" minValue="1" maxValue="4" placeholder="1 to 4"/>
                 <h:outputLabel for="gresb">GRESB Rating: </h:outputLabel>
-                <p:inputNumber id="gresb" value="#{fundManagedBean.gresb}"/>
+                <p:inputNumber id="gresb" value="#{fundManagedBean.gresb}" minValue="0" maxValue="100" placeholder="0 to 100"/>
                 <h:outputLabel for="tfcd">In TFCD?</h:outputLabel>
                 <p:selectBooleanCheckbox id="tfcd" value="#{fundManagedBean.tfcd}"/>
                 <h:outputLabel for="unrpi">In UNRPI?</h:outputLabel>

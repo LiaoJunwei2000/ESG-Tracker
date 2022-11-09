@@ -12,9 +12,10 @@
         </title>
     </h:head>
     <h:body>
-        <p:layout>            
-            <p:layoutUnit position="west" resizable="true"
-                          size="300" minSize="40" maxSize="300">
+        <p:layout fullPage="true" widgetVar="layoutWdgt">            
+            <p:layoutUnit position="west" resizable="true" collapsible="true" closable="true">
+                <img src="resources/img/esg1.png" alt="esgLogo" width="200" height="180" align="center"/><h1 align="center">ESG Tracker</h1><br/>
+                <a href="index.xhtml">Dashboard</a><br />
                 <a href="viewFunds.xhtml">Funds</a><br />
                 <a href="viewAssets.xhtml">Assets</a><br />
                 <a href="portGresb.xhtml">Analytics</a><br />
@@ -25,7 +26,7 @@
                 &nbsp;&nbsp;&nbsp;<a href="regionGresb.xhtml">Region Quarterly GRESB</a><br />
                 &nbsp;&nbsp;&nbsp;<a href="sectorGresb.xhtml">Sector Quarterly GRESB</a><br />
             </p:layoutUnit>
-            <p:layoutUnit position="center">
+            <p:layoutUnit position="center" resizable="true">
                 <ui:insert name="content">Content</ui:insert>
             </p:layoutUnit>
         </p:layout>
