@@ -10,14 +10,17 @@
         title
     </ui:define>
 
-    <ui:define name="content">   
+    <ui:define name="content">
+
+
+
         <h:form id="form">
             <p:chart type="line" model="#{lineChartManagedBean.fundGresbModel}" style="width:1200px;max-width: calc(100% - 20px);"/>
 
             <p:inputText placeholder="Enter keywords" 
                          value="#{lineChartManagedBean.fundIdentifier}">
             </p:inputText>
-            <p:commandButton value="Submit" 
+            <p:commandButton value="Search By Fund Identifier" 
                              action="#{lineChartManagedBean.createFundGresbModel()}"
                              update=":form"/>
         </h:form>
