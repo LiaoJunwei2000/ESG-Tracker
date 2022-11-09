@@ -278,8 +278,8 @@ public class FundSession implements FundSessionLocal {
     @Override
     public List<Double> getPortGresbList() {
         
-        List<String> yearList = getYearList();
-        List<String> quarterList = getQuarterList();
+        List<Integer> yearList = getYearList();
+        List<Integer> quarterList = getQuarterList();
         
         List<Double> resultList = new ArrayList<>();
         
@@ -304,8 +304,8 @@ public class FundSession implements FundSessionLocal {
     @Override
     public List<Double> getPortGreenPctList() {
         
-        List<String> yearList = getYearList();
-        List<String> quarterList = getQuarterList();
+        List<Integer> yearList = getYearList();
+        List<Integer> quarterList = getQuarterList();
         
         List<Double> resultList = new ArrayList<>();
         
@@ -322,7 +322,7 @@ public class FundSession implements FundSessionLocal {
                 greenValue += tempGreenValue;
             }
             
-            resultList.add(greenValue / quarterValue);
+            resultList.add(100 * (greenValue / quarterValue));
         }
         return resultList;
     }
@@ -357,7 +357,7 @@ public class FundSession implements FundSessionLocal {
     }
     
     @Override
-    public List<Double> getRegionGresbList(){
+    public List<Double> getRegionGreenPctList(){
         
         
         
@@ -365,7 +365,7 @@ public class FundSession implements FundSessionLocal {
     }
     
     @Override
-    public List<Double> getSectorGresbList(){
+    public List<Double> getSectorGreenPctList(){
 
         
         
@@ -377,6 +377,7 @@ public class FundSession implements FundSessionLocal {
     /* helper methods below. 
     Currently getting a set of quarters based on 2022 Q3 
     
+    todo input selected quarter and get 10 qtr data back.
     
     
     */
@@ -390,7 +391,7 @@ public class FundSession implements FundSessionLocal {
         return (List<Fund>)q.getResultList();
     }
     
-    private List<Fund> getAllFunds(String fYear, String fQuarter){
+    private List<Fund> getAllFunds(int fYear, int fQuarter){
         
         Query q;
         
@@ -401,34 +402,34 @@ public class FundSession implements FundSessionLocal {
         return q.getResultList();
     }
     
-    private List<String> getYearList() {
-        ArrayList<String> yearList = new ArrayList<>();
-        yearList.add("2022");
-        yearList.add("2022");
-        yearList.add("2022");
-        yearList.add("2021");
-        yearList.add("2021");
-        yearList.add("2021");
-        yearList.add("2021");
-        yearList.add("2020");
-        yearList.add("2020");
-        yearList.add("2020");
+    private List<Integer> getYearList() {
+        ArrayList<Integer> yearList = new ArrayList<>();
+        yearList.add(2022);
+        yearList.add(2022);
+        yearList.add(2022);
+        yearList.add(2021);
+        yearList.add(2021);
+        yearList.add(2021);
+        yearList.add(2021);
+        yearList.add(2020);
+        yearList.add(2020);
+        yearList.add(2020);
         
         return yearList;
     }
     
-    private List<String> getQuarterList() {
-        ArrayList<String> quarterList = new ArrayList<>();
-        quarterList.add("Q3");
-        quarterList.add("Q2");
-        quarterList.add("Q1");
-        quarterList.add("Q4");
-        quarterList.add("Q3");
-        quarterList.add("Q2");
-        quarterList.add("Q1");
-        quarterList.add("Q4");
-        quarterList.add("Q3");
-        quarterList.add("Q2");
+    private List<Integer> getQuarterList() {
+        ArrayList<Integer> quarterList = new ArrayList<>();
+        quarterList.add(3);
+        quarterList.add(2);
+        quarterList.add(1);
+        quarterList.add(4);
+        quarterList.add(3);
+        quarterList.add(2);
+        quarterList.add(1);
+        quarterList.add(4);
+        quarterList.add(3);
+        quarterList.add(2);
         
         return quarterList;
     }

@@ -57,8 +57,8 @@ public interface FundSessionLocal {
     
     public List<Double> getFundGreenPct(String fundId);
     
-    public List<Double> getRegionGresbList();
+    public List<Double> getRegionGreenPctList();
     
-    public List<Double> getSectorGresbList();
+    public List<Double> getSectorGreenPctList();
             
 }
